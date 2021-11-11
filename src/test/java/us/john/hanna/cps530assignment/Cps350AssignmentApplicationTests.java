@@ -1,4 +1,4 @@
-package me.john.amiscaray.cps350assignment;
+package us.john.hanna.cps530assignment;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

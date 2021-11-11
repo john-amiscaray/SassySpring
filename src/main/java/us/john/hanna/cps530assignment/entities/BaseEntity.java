@@ -1,4 +1,4 @@
-package me.john.amiscaray.cps350assignment.entities;
+package us.john.hanna.cps530assignment.entities;
 
 import lombok.Data;
 
