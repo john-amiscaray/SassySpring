@@ -1,6 +1,8 @@
 package us.john.hanna.cps530assignment.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -8,6 +10,8 @@ import javax.persistence.ManyToOne;
 import java.sql.Timestamp;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Todo extends BaseEntity {
 
     @Getter
@@ -20,5 +24,10 @@ public class Todo extends BaseEntity {
     @ManyToOne
     private User owner;
 
-
+    public Todo(Long id, String subject, Timestamp dueDate, User owner) {
+        this.subject = subject;
+        this.dueDate = dueDate;
+        this.owner = owner;
+        this.setId(id);
+    }
 }

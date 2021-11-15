@@ -10,9 +10,9 @@ public interface TodoService {
 
     Set<Todo> getAllTodos();
 
-    Todo getTodoById() throws TodoNotFoundException;
+    Todo getTodoById(Long id) throws TodoNotFoundException;
 
-    void deleteTodo() throws TodoNotFoundException;
+    void deleteTodo(Long id) throws TodoNotFoundException;
 
     Long updateTodo(Long id, TodoDTO dto) throws TodoNotFoundException;
 
