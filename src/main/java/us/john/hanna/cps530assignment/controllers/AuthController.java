@@ -12,7 +12,7 @@ import us.john.hanna.cps530assignment.exceptions.BadAuthRequest;
 import us.john.hanna.cps530assignment.services.AuthService;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/api/auth")
 @AllArgsConstructor
 public class AuthController {
 

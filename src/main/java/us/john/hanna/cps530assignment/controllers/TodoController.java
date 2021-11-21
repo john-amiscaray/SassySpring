@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("todo")
+@RequestMapping("/api/todo")
 @AllArgsConstructor
 public class TodoController {
 

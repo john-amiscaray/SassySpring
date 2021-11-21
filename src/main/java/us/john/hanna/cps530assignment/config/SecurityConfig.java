@@ -35,14 +35,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring()
-                .antMatchers("/auth/**")
+                .antMatchers("/api/auth/**")
                 .antMatchers("/swagger-ui.html")
                 .antMatchers("/v2/**")
                 .antMatchers("/webjars/**")
                 .antMatchers("/h2-console/**")
                 .antMatchers("/swagger-resources/**")
+                .antMatchers("/")
                 .antMatchers("/views/**");
     }
 
