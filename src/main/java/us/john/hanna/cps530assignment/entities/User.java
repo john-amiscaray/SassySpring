@@ -2,6 +2,7 @@ package us.john.hanna.cps530assignment.entities;
 
 import lombok.*;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.Set;
@@ -13,6 +14,7 @@ public class User extends BaseEntity{
 
     @Getter
     @Setter
+    @Column(unique = true)
     private String username;
     @Getter
     @Setter

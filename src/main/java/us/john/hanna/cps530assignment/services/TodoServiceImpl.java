@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import us.john.hanna.cps530assignment.data.TodoRepo;
 import us.john.hanna.cps530assignment.domain.TodoDTO;
 import us.john.hanna.cps530assignment.entities.Todo;
+import us.john.hanna.cps530assignment.exceptions.BadAuthRequest;
 import us.john.hanna.cps530assignment.exceptions.TodoNotFoundException;
 
 import java.sql.Timestamp;
@@ -18,7 +19,7 @@ public class TodoServiceImpl implements TodoService {
     private AuthService authService;
 
     @Override
-    public Set<Todo> getAllTodos() {
+    public Set<Todo> getAllTodos() throws BadAuthRequest {
         return todoRepo.findAllByOwner(authService.getCurrentlySignedInUser());
     }
 
@@ -36,14 +37,14 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Long updateTodo(Long id, TodoDTO dto) throws TodoNotFoundException {
+    public Long updateTodo(Long id, TodoDTO dto) throws TodoNotFoundException, BadAuthRequest {
         Todo todo = todoRepo.save(new Todo(id, dto.getSubject(), new Timestamp(dto.getDueDate()),
                 authService.getCurrentlySignedInUser()));
         return todo.getId();
     }
 
     @Override
-    public Long createTodo(TodoDTO dto) {
+    public Long createTodo(TodoDTO dto) throws BadAuthRequest {
         Todo todo = todoRepo.save(new Todo(dto.getSubject(), new Timestamp(dto.getDueDate()),
                 authService.getCurrentlySignedInUser()));
         return todo.getId();
