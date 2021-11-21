@@ -1,54 +1,61 @@
 package us.john.hanna.cps530assignment.controllers;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import us.john.hanna.cps530assignment.domain.TodoDTO;
+import us.john.hanna.cps530assignment.domain.TodoDto;
+import us.john.hanna.cps530assignment.entities.Todo;
+import us.john.hanna.cps530assignment.exceptions.BadAuthRequest;
+import us.john.hanna.cps530assignment.services.TodoService;
+
+import java.net.URI;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("todo")
+@AllArgsConstructor
 public class TodoController {
 
-    private final ResponseEntity<Void> notImplemented;
-
-    public TodoController(@Qualifier("notImplemented") ResponseEntity<Void> notImplemented){
-
-        this.notImplemented = notImplemented;
-
-    }
+    private final TodoService todoService;
 
     @GetMapping("/allTodos")
-    public ResponseEntity<?> myTodos(){
+    public ResponseEntity<Set<TodoDto>> myTodos() throws BadAuthRequest {
 
-        return notImplemented;
+        return ResponseEntity.ok(todoService.getAllTodos().stream()
+                .map(Todo::toDto)
+                .collect(Collectors.toSet()));
 
     }
 
     @PostMapping
-    public ResponseEntity<?> postTodo(@RequestBody TodoDTO dto){
+    public ResponseEntity<Void> postTodo(@RequestBody TodoDto dto) throws BadAuthRequest {
 
-        return notImplemented;
+        Long todoId = todoService.createTodo(dto);
+        return ResponseEntity.created(URI.create("/todo/" + todoId)).build();
 
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getTodoById(@PathVariable("id") Long id){
+    public ResponseEntity<TodoDto> getTodoById(@PathVariable("id") Long id) throws BadAuthRequest {
 
-        return notImplemented;
+        return ResponseEntity.ok(todoService.getTodoById(id).toDto());
 
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateTodo(@PathVariable("id") Long id, @RequestBody TodoDTO dto){
+    public ResponseEntity<Void> updateTodo(@PathVariable("id") Long id, @RequestBody TodoDto dto) throws BadAuthRequest {
 
-        return notImplemented;
+        todoService.updateTodo(id, dto);
+        return ResponseEntity.created(URI.create("/todo/" + id)).build();
 
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTodo(@PathVariable("id") Long id){
+    public ResponseEntity<Void> deleteTodo(@PathVariable("id") Long id) throws BadAuthRequest {
 
-        return notImplemented;
+        todoService.deleteTodo(id);
+        return ResponseEntity.noContent().build();
 
     }
 

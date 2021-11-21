@@ -3,7 +3,7 @@ package us.john.hanna.cps530assignment.services;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import us.john.hanna.cps530assignment.data.TodoRepo;
-import us.john.hanna.cps530assignment.domain.TodoDTO;
+import us.john.hanna.cps530assignment.domain.TodoDto;
 import us.john.hanna.cps530assignment.entities.Todo;
 import us.john.hanna.cps530assignment.exceptions.BadAuthRequest;
 import us.john.hanna.cps530assignment.exceptions.TodoNotFoundException;
@@ -24,27 +24,33 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public Todo getTodoById(Long id) throws TodoNotFoundException {
-        return todoRepo.findById(id).orElseThrow(TodoNotFoundException::new);
+    public Todo getTodoById(Long id) throws TodoNotFoundException, BadAuthRequest {
+        return todoRepo.findByOwnerAndId(authService.getCurrentlySignedInUser(), id).orElseThrow(TodoNotFoundException::new);
     }
 
     @Override
-    public void deleteTodo(Long id) throws TodoNotFoundException {
-        if(!todoRepo.existsById(id)){
+    public void deleteTodo(Long id) throws TodoNotFoundException, BadAuthRequest {
+        if(!todoRepo.existsByOwnerAndId(authService.getCurrentlySignedInUser(), id)){
             throw new TodoNotFoundException();
         }
         todoRepo.deleteById(id);
     }
 
     @Override
-    public Long updateTodo(Long id, TodoDTO dto) throws TodoNotFoundException, BadAuthRequest {
-        Todo todo = todoRepo.save(new Todo(id, dto.getSubject(), new Timestamp(dto.getDueDate()),
+    public Long updateTodo(Long id, TodoDto dto) throws TodoNotFoundException, BadAuthRequest {
+
+        Todo original = todoRepo.findByOwnerAndId(authService.getCurrentlySignedInUser(), id)
+                .orElseThrow(TodoNotFoundException::new);
+        Timestamp due = dto.getDueDate() == null ? original.getDueDate() : new Timestamp(dto.getDueDate());
+        String subject = dto.getSubject() == null ? original.getSubject() : dto.getSubject();
+        Todo todo = todoRepo.save(new Todo(id, subject, due,
                 authService.getCurrentlySignedInUser()));
         return todo.getId();
     }
 
     @Override
-    public Long createTodo(TodoDTO dto) throws BadAuthRequest {
+    public Long createTodo(TodoDto dto) throws BadAuthRequest {
+
         Todo todo = todoRepo.save(new Todo(dto.getSubject(), new Timestamp(dto.getDueDate()),
                 authService.getCurrentlySignedInUser()));
         return todo.getId();

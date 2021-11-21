@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import us.john.hanna.cps530assignment.domain.TodoDto;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -30,4 +31,11 @@ public class Todo extends BaseEntity {
         this.owner = owner;
         this.setId(id);
     }
+
+    public TodoDto toDto(){
+
+        return new TodoDto(getId(), dueDate.getTime(), subject);
+
+    }
+
 }

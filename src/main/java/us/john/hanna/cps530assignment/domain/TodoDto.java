@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TodoDTO {
+public class TodoDto {
 
+    private Long id;
     private Long dueDate;
     private String subject;
 
