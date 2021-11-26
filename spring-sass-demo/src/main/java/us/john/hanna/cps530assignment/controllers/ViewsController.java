@@ -1,6 +1,5 @@
 package us.john.hanna.cps530assignment.controllers;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,7 +17,6 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("views")
-@RequiredArgsConstructor
 public class ViewsController {
 
     @Value("${app.origin}")
@@ -41,10 +39,21 @@ public class ViewsController {
     }
 
     @PostMapping("signup")
-    public String processSignUpForm(@RequestParam Map<String, String> body){
+    public String processSignUpForm(Model model, @RequestParam Map<String, String> body){
 
         SignupRequest signupRequest = new SignupRequest(body.get("username"), body.get("password"), body.get("confirmPassword"));
-        return "error";
+        RestTemplate rest = new RestTemplate();
+        ResponseEntity<String> response = rest.postForEntity(origin + "/api/auth/signup",
+                new HttpEntity<>(signupRequest), String.class);
+        model.addAttribute("origin", origin);
+        if(response.getStatusCode().isError()){
+
+            model.addAttribute("error", response.getBody());
+            return "error";
+
+        }
+
+        return "successful-signup";
 
     }
 
