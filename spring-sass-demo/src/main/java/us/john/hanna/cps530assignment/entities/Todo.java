@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class Todo extends BaseEntity {
 
+    // @Getter creates a getter and @Setter creates a setter
     @Getter
     @Setter
     private String subject;
@@ -22,6 +23,7 @@ public class Todo extends BaseEntity {
     @Setter
     private Timestamp dueDate;
 
+    // Many todos will be owned by one user
     @ManyToOne
     private User owner;
 
@@ -32,6 +34,10 @@ public class Todo extends BaseEntity {
         this.setId(id);
     }
 
+    /*
+    Create an Instance of TodoDto using this class. TodoDto is just a POJO that will later be used to represent HTTP responses.
+    The TodoDto class simply contains an id, due date (long epoch time), and the subject of the to-do.
+     */
     public TodoDto toDto(){
 
         return new TodoDto(getId(), dueDate.getTime(), subject);

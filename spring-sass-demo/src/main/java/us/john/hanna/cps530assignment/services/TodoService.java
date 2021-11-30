@@ -15,7 +15,7 @@ public interface TodoService {
 
     void deleteTodo(Long id) throws TodoNotFoundException, BadAuthRequest;
 
-    Long updateTodo(Long id, TodoDto dto) throws TodoNotFoundException, BadAuthRequest;
+    void updateTodo(Long id, TodoDto dto) throws TodoNotFoundException, BadAuthRequest;
 
     Long createTodo(TodoDto dto) throws BadAuthRequest;
 
