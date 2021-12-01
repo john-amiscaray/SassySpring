@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <form method="post" th:action="${origin} + '/views/signup'">
-        <label for="username">
-            Username
-        </label>
-        <input id="username" name="username" type="text">
-        <label for="password">
-            Password
-        </label>
-        <input id="password" name="password" type="password">
-        <label for="confirm-password">
-            Confirm password
-        </label>
-        <input id="confirm-password" name="confirmPassword" type="password">
-        <button type="submit">Signup</button>
-    </form>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        <form method="post" th:action="${origin} + '/views/signup'">
+            <label for="username">
+                Username
+            </label>
+            <input id="username" name="username" type="text">
+            <label for="password">
+                Password
+            </label>
+            <input id="password" name="password" type="password">
+            <label for="confirm-password">
+                Confirm password
+            </label>
+            <input id="confirm-password" name="confirmPassword" type="password">
+            <button type="submit">Signup</button>
+        </form>
+    </body>
 </html>

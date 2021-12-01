@@ -555,27 +555,27 @@ Lastly, let’s create some GUIs for the signup login. To start, let’s build t
 ```html
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-  <form method="post" th:action="${origin} + '/views/signup'">
-      <label for="username">
-          Username
-      </label>
-      <input id="username" name="username" type="text">
-      <label for="password">
-          Password
-      </label>
-      <input id="password" name="password" type="password">
-      <label for="confirm-password">
-          Confirm password
-      </label>
-      <input id="confirm-password" name="confirmPassword" type="password">
-      <button type="submit">Signup</button>
-  </form>
-</body>
+    <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+    </head>
+    <body>
+      <form method="post" th:action="${origin} + '/views/signup'">
+          <label for="username">
+              Username
+          </label>
+          <input id="username" name="username" type="text">
+          <label for="password">
+              Password
+          </label>
+          <input id="password" name="password" type="password">
+          <label for="confirm-password">
+              Confirm password
+          </label>
+          <input id="confirm-password" name="confirmPassword" type="password">
+          <button type="submit">Signup</button>
+      </form>
+    </body>
 </html>
 ```
 
@@ -602,20 +602,42 @@ public String processSignUpForm(Model model, @RequestParam Map<String, String> b
 
 }
 ```
-Finally, let’s build a simple page for when the user successfully signs up:
+From there, let’s build a simple page for when the user successfully signs up:
 
 ```html
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>Welcome!</title>
-</head>
-<body>
-  <h1>Thanks for signing up for this app!</h1>
-  <p>Your account has successfully been created. You may login <a th:href="${origin} + '/views/login'">here</a>.</p>
-</body>
+    <head>
+      <meta charset="UTF-8">
+      <title>Welcome!</title>
+    </head>
+    <body>
+      <h1>Thanks for signing up for this app!</h1>
+      <p>Your account has successfully been created. You may login <a th:href="${origin} + '/views/login'">here</a>.</p>
+    </body>
 </html>
+```
+
+Finally, let's build a simple controller to redirect the user to the signup page from the root url of our app:
+
+```java
+package us.john.hanna.cps530assignment.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.view.RedirectView;
+
+@Controller
+public class HomeController {
+    // This method is mapped to the root url of our app since we didn't pass any arguments to the GetMapping annotation
+    @GetMapping
+    public RedirectView getHomePage(){
+
+        return new RedirectView("/views/signup");
+
+    }
+
+}
 ```
 
 ### Conclusion

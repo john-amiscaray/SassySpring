@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Your todos</title>
-</head>
-<body>
-    <h1>Here are your to-dos</h1>
-    <ul>
-        <!-- th:each="todo: ${todos}" -> for each of the todo list items, create an li element like so -->
-        <!-- ${#dates.format(new java.util.Date(todo.dueDate))} -> change the long the date was stored as to a human-readable date -->
-        <li th:each="todo: ${todos}" th:text="'TODO: ' + ${todo.subject} + ' DUE: ' + ${#dates.format(new java.util.Date(todo.dueDate))}"></li>
-    </ul>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Your todos</title>
+    </head>
+    <body>
+        <h1>Here are your to-dos</h1>
+        <ul>
+            <!-- th:each="todo: ${todos}" -> for each of the todo list items, create an li element like so -->
+            <!-- ${#dates.format(new java.util.Date(todo.dueDate))} -> change the long the date was stored as to a human-readable date -->
+            <li th:each="todo: ${todos}" th:text="'TODO: ' + ${todo.subject} + ' DUE: ' + ${#dates.format(new java.util.Date(todo.dueDate))}"></li>
+        </ul>
+    </body>
 </html>
