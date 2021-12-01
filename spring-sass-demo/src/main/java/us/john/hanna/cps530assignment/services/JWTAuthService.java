@@ -56,13 +56,16 @@ public class JWTAuthService implements AuthService{
 
         final long TEN_HOURS = 36000000L;
         return JWT.create()
+                // subject is something to identify the user
                 .withSubject(user.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + TEN_HOURS))
+                // sign the token with our secret key so we can identify legit tokens
                 .sign(Algorithm.HMAC512(secret.getBytes()));
     }
 
     @Override
     public User getCurrentlySignedInUser() throws BadAuthRequest {
+        // Get an object containing the username and password of the current user
         UsernamePasswordAuthenticationToken auth =
                 (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
@@ -71,6 +74,7 @@ public class JWTAuthService implements AuthService{
 
     @Override
     public UsernamePasswordAuthenticationToken verifyToken(String token) {
+        // Check the token is legit using our secret key and then get its subject (the username of the user)
         String username = JWT.require(Algorithm.HMAC512(secret.getBytes()))
                 .build()
                 .verify(token).getSubject();

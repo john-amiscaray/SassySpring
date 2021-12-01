@@ -31,11 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTFilter(authenticationManager, authService))
+                // opt out of managing sessions since JWT should handle that
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Override
     public void configure(WebSecurity web) {
+        // Don't apply our filter to any of these paths
         web.ignoring()
                 .antMatchers("/api/auth/**")
                 .antMatchers("/swagger-ui.html")
