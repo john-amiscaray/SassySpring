@@ -64,7 +64,7 @@ b {
 }
 
 .content {
-  padding: 5em;
+  padding: 2em 5em;
 }
 
 .summary {
@@ -107,12 +107,18 @@ b {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  gap: 2em;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1em;
 }
 
 .framework-summary h1 {
-  margin-top: 2em;
-  float: left;
+  margin-top: 0;
 }
 
 .framework-summary p {
@@ -120,10 +126,11 @@ b {
   font-size: 1.2em;
   text-align: left;
   padding: 0.5em;
+  width: 15em;
 }
 
 .framework-summary img {
-  width: 80%;
+  width: 400px;
   height: auto;
 }
 
@@ -140,10 +147,6 @@ b {
           justify-content: space-between;
 }
 
-.framework-summary .intro p {
-  padding: 2em;
-}
-
 .framework-summary .framework-info {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -153,7 +156,7 @@ b {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: 3em;
+  padding: 1em;
 }
 
 .framework-summary .framework-info .characteristic {

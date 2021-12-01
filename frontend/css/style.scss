@@ -86,7 +86,7 @@ b {
 
 // content other than navbar
 .content {
-    padding: 5em;
+    padding: 2em 5em;
 }
 
 // top main summary
@@ -121,32 +121,32 @@ b {
 
     display: flex;
     flex-wrap: wrap;
-    gap: 2em;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
 
     h1 {
-        margin-top: 2em;
-        float: left;
+        margin-top: 0;
     }
 
     p {
         font-family: $text;
         font-size: 1.2em;
         text-align: left;
-        padding:0.5em;
+        padding: 0.5em;
+        width: 15em;
     }
 
     img {
-        width: 80%;
+        width: 400px;
         height: auto;
+        
     }
 
     .intro {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        p {
-            padding: 2em;
-        }
     }
 
     .framework-info {
@@ -154,7 +154,7 @@ b {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        padding: 3em;
+        padding: 1em;
 
         .characteristic {
             width: 30vw;
@@ -164,7 +164,14 @@ b {
             padding: 1.2em 2em;
             margin: 0.5em;
         }
+
+        
     }
+
+    // .spring-install {
+    //     flex-direction: column;
+    //     justify-content: center;
+    // }
 }
 
 
