@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!-- xmlns:th="http://www.thymeleaf.org" -> add Thymeleaf to the page -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+    <!-- th:action="${origin} + '/views/login'" -> set the action attribute of this form to http://localhost:8080/views/login
+      ${origin} is the data we sent to this page ("http://localhost:8080")
+      -->
+    <form method="post" th:action="${origin} + '/views/login'">
+        <label for="username">
+            Username
+        </label>
+        <input id="username" name="username" type="text">
+        <label for="password">
+            Password
+        </label>
+        <input id="password" name="password" type="password">
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
