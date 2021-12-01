@@ -1,0 +1,176 @@
+// import fonts
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Work+Sans:wght@300&display=swap');
+
+// Defining variables
+
+// colours
+$nav-colour: #022B3A;
+$bg-colour: #E9EBF1;
+$link-colour: #1F7A8C;
+$win1-colour: #DBEBFB;
+$win2-colour: #EDD4D7;
+$credits-colour: #E1E5F2;
+
+// font 
+$titles: 'Montserrat', sans-serif;
+$text: 'Work Sans', sans-serif;
+
+// navbar
+nav {
+    background-color: $nav-colour;
+    color: white;
+    padding: 1em 2em;
+    
+
+    .nav-main {
+        font-family: $titles;
+        color:white;
+        text-decoration: none;
+        font-size: 1.5em;
+    }
+
+    .nav-option {
+        float: right;
+        color: white;
+        text-decoration: none;
+        font-size: 1em;
+        margin: auto 1.5em;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// general stuff
+
+body {
+    background-color: $bg-colour;
+    font-family: $text;
+}
+
+h1 {
+    font-family: $titles;
+    font-size: 2.5em;
+    text-align: center;
+    padding: 0.5em;
+}
+
+h2 {
+    font-family: $titles;
+    font-size: 1.5em;
+}
+
+p {
+    font-family: $text;
+    font-size: 16px;
+}
+
+ul {
+    padding: 1em;
+}
+
+li {
+    display: list-item;
+    list-style-type: disc;
+    list-style-position:inherit;
+    font-family: $text;
+    font-size: 16px;
+    padding: 0.5em 1.5em;
+}
+
+b {
+    font-weight: bold;
+}
+
+// content other than navbar
+.content {
+    padding: 5em;
+}
+
+// top main summary
+.summary {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+
+    img {
+        width: 50%;
+        height: auto;
+        align-self: center;
+        margin-top: 2em;
+    }
+
+    p {
+        font-size: 1.3em;
+        padding: 0.5em;
+    }
+    
+    a {
+        padding: 0.2em 0;
+    }
+}
+
+// each section for framework
+
+.framework-summary {
+    padding: 1.2em;
+    margin: 0.5em;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+
+    h1 {
+        margin-top: 2em;
+        float: left;
+    }
+
+    p {
+        font-family: $text;
+        font-size: 1.2em;
+        text-align: left;
+        padding:0.5em;
+    }
+
+    img {
+        width: 80%;
+        height: auto;
+    }
+
+    .intro {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        p {
+            padding: 2em;
+        }
+    }
+
+    .framework-info {
+
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 3em;
+
+        .characteristic {
+            width: 30vw;
+            background-color: $win2-colour;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 5px;
+            padding: 1.2em 2em;
+            margin: 0.5em;
+        }
+    }
+}
+
+
+
+
+
+
+
+
