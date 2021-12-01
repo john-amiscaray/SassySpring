@@ -20,6 +20,10 @@ public class AuthManagerImpl implements AuthenticationManager {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
+        /*
+        The principal and credentials fields in the Authentication object are generic objects, but we used
+        usernames as the principal and passwords as the credentials, so we must cast them to strings.
+         */
         User user = userRepo.findByUsername(
                 (String) authentication.getPrincipal()).orElseThrow(() -> new BadCredentialsException("Could not find the user"));
         if(encoder.matches((String) authentication.getCredentials(), user.getPassword())){

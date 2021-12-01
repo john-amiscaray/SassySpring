@@ -7,10 +7,11 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 public class HomeController {
 
+    // This method is mapped to the root url of our app since we didn't pass any arguments to the GetMapping annotation
     @GetMapping
     public RedirectView getHomePage(){
 
-        return new RedirectView("/views/login");
+        return new RedirectView("/views/signup");
 
     }
 

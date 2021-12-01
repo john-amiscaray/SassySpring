@@ -19,7 +19,7 @@ import java.util.Map;
 @RequestMapping("views")
 public class ViewsController {
 
-    // Inject the value of app.origin from our application-dev.properties. This should be set to http://localhost:8080
+    // Inject the value of app.origin from our application-dev.properties. This should be set to http://localhost:8080.
     @Value("${app.origin}")
     private String origin;
 
@@ -64,6 +64,7 @@ public class ViewsController {
     }
 
     @PostMapping(path = "login")
+    // @RequestParam Map<String, String> body -> the key value pairs corresponding to form data
     public String getTodosPage(Model model, @RequestParam Map<String, String> body){
 
         // LoginRequest is a class we created to represent a request body for the login endpoint of our API. It is just a POJO.
