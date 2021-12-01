@@ -5,17 +5,109 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CPS 530</title>
-    <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <nav>
-        <h1 class="nav-main">CPS530</h1>
-        <p class="nav-option">Installation</p>
-        <p class="nav-option">Tutorial</p>
-        <p class="nav-option">Tutorial Page</p>
-        <p class="nav-option">Conclusion</p>
-        <p class="nav-option">Credits</p>
+    <nav class="nav-desktop">
+        <a href="index.html" class="nav-main">CPS530</a>
+        <a href="" class="nav-option">Installation</a>
+        <a href="" class="nav-option">Tutorial</a>
+        <a href="" class="nav-option">Tutorial Page</a>
+        <a href="" class="nav-option">Conclusion</a>
+        <a href="" class="nav-option">Credits</a>
     </nav>
+
+    <section class="summary">
+        <h1>Spring and Sass</h1>
+        <p>What exactly are they?</p>
+        <a href="#sass-summary">Jump to Sass</a>
+        <a href="#spring-summary">Jump to Spring</a>
+        <img src="img/unsplash code.png" alt="Screenshot of generic code.">
+    </section>
+
+    <main class="sass-summary">
+        <h1>Sass</h1>
+        <p>Sass is a front-end framework designed to make it easier to do CSS. One of the most popular CSS preprocessors (compiles code into CSS)</p>
+        <img src="img/sass.png" alt="Image of sass logo.">
+
+        <section class="framework-info">
+            <div class="characteristic">
+                <h2>Strengths</h2>
+                <ul>
+                    <li>Can be used to keep your style sheets organized and concise</li>
+                    <li>Compatible with all versions of CSS</li>
+                    <li>Supported  by a large community</li>
+                    <li>Many other frameworks built with Sass (ie. Compass, Bourbon)</li>
+                </ul>
+            </div>
+            <div class="characteristic">
+                <h2>Weaknesses</h2>
+                <ul>
+                    <li>Risk making over-qualified CSS when using the nesting feature which can decrease performance if not used carefully
+                    </li>
+                    <li>Can be difficult to troubleshoot</li>
+                    <li>Code must be compiled which adds an extra step</li>
+                </ul>
+            </div>
+            <div class="characteristic">
+                <h2>Which developers?</h2>
+                <ul>
+                    <li>Front-end developers</li>
+                </ul>
+            </div>
+            <div class="characteristic">
+                <h2>Types of websites</h2>
+                <ul>
+                    <li>Large websites where regular CSS can become cluttered</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <main class="spring-summary">
+        <h1>Spring</h1>
+        <p>Spring is a back-end framework. The most popular framework for Java web developers by far. Ranked as the 7th most popular backend framework as of march 2021 based on Github stars</p>
+        <img src="img/spring.png" alt="Image of spring logo.">
+
+        <section class="framework-info">
+            <div class="characteristic">
+                <h2>Strengths</h2>
+                <ul>
+                    <li>Spring Boot provides a highly opinionated and streamlined process for developing backend web applications with ease.</li>
+                    <li>Abstracts a lot of the complex lower-level details, making the coding experience closer to writing simpler Java classes.</li>
+                    <li>Ioc container manages instances for you so you don’t have to.</li>
+                    <li>Spring Data JPA helps you quickly set up a database and perform queries without needing to know how to write SQL queries.</li>
+                    <li>Uses an embedded server that can be easily used by running a jar.</li>
+                    <li>Large community.</li>
+                    <li>Many modules adding flexibility in how you can build your projects.</li>
+                    <li>Great for microservices.</li>
+                </ul>
+            </div>
+            <div class="characteristic">
+                <h2>Weaknesses</h2>
+                <ul>
+                    <li>The opinionated approach it gives is at the cost of some control.</li>
+                    <li>Fairly easy to pick up but has a decently steep learning curve.</li>
+                    <li>Complex.</li>
+                    <li>Lacking some guidelines especially for security.</li>
+                    <li>Lots of code to write.</li>
+                </ul>
+            </div>
+            <div class="characteristic">
+                <h2>Which developers?</h2>
+                <ul>
+                    <li>Very popular amongst Java developers.</li>
+                    <li>Big enterprises.</li>
+                </ul>
+            </div>
+            <div class="characteristic">
+                <h2>Types of websites</h2>
+                <ul>
+                    <li>Popular for enterprise web applications.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
 </body>
 </html>

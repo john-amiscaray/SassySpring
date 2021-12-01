@@ -1,0 +1,29 @@
+// import fonts
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Work+Sans:wght@300&display=swap');
+
+// Defining variables
+
+// colours
+$nav-colour: #022B3A;
+$bg-colour: #E9EBF1;
+$link-colour: #1F7A8C;
+$win1-colour: #DBEBFB;
+$win2-colour: #EDD4D7;
+$credits-colour: #E1E5F2;
+
+// font 
+$titles: 'Montserrat', sans-serif;
+$text: 'Work Sans', sans-serif;
+
+h1 {
+    font-family: $titles;
+    font-size: 2.5em;
+    align-items: center;
+}
+
+
+
+
+
+
