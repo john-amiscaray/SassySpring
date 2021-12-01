@@ -372,6 +372,7 @@ public class TodoController {
    }
 
    // Map this method to the endpoint: POST /api/todo
+   // @RequestBody specifies that the following argument represents the request body 
    @PostMapping
    public ResponseEntity<Void> postTodo(@RequestBody TodoDto dto) throws BadAuthRequest {
 
@@ -381,6 +382,7 @@ public class TodoController {
    }
 
    // Map this method to the endpoint: GET /api/todo/{id} where id is the id of the TODO
+   // @PathVariable specifies that the following argument is the path variable of {id} in the url
    @GetMapping("/{id}")
    public ResponseEntity<TodoDto> getTodoById(@PathVariable("id") Long id) throws BadAuthRequest {
 
