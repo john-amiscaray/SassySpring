@@ -21,7 +21,10 @@ public class User extends BaseEntity{
     @Setter
     private String password;
 
-    // One user will own many todos. Map a database table based on the *owner* field in the Todo entity
+    /*
+     One user will own many todos. Map the entity-relationship based on the *owner* field in the Todo entity.
+     This adds the id of the user as a field on the Todo table.
+     */
     @OneToMany(mappedBy = "owner")
     @Getter
     @Setter
