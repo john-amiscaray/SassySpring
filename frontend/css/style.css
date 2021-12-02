@@ -45,6 +45,7 @@ h3 {
   font-family: "Montserrat", sans-serif;
   font-size: 1.2em;
   padding: 0.2em;
+  margin: 0.5em auto;
 }
 
 p {
@@ -257,5 +258,10 @@ b {
 
 .credits li {
   padding: 0.2em 0.5em;
+}
+
+.tutorial-content h1 {
+  text-align: left;
+  padding: auto 0;
 }
 /*# sourceMappingURL=style.css.map */

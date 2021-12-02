@@ -67,6 +67,7 @@ h3 {
     font-family: $titles;
     font-size: 1.2em;
     padding: 0.2em;
+    margin: 0.5em auto;
 }
 
 p {
@@ -253,6 +254,13 @@ b {
         padding: 0.2em 0.5em;
     }
 
+}
+
+.tutorial-content {
+    h1 {
+        text-align: left;
+        padding: auto 0;
+    }
 }
 
 
