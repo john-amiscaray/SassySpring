@@ -1,7 +1,6 @@
 package us.john.hanna.cps530assignment.config;
 
 import lombok.AllArgsConstructor;
-import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
