@@ -557,27 +557,43 @@ Lastly, let’s create some GUIs for the signup login. To start, let’s build t
 ```html
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-      <meta charset="UTF-8">
-      <title>Title</title>
-    </head>
-    <body>
-      <form method="post" th:action="${origin} + '/views/signup'">
-          <label for="username">
-              Username
-          </label>
-          <input id="username" name="username" type="text">
-          <label for="password">
-              Password
-          </label>
-          <input id="password" name="password" type="password">
-          <label for="confirm-password">
-              Confirm password
-          </label>
-          <input id="confirm-password" name="confirmPassword" type="password">
-          <button type="submit">Signup</button>
-      </form>
-    </body>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body class="content">
+<section class="login">
+    <section class="card">
+        <p>Don't have an account yet?</p>
+        <h2>Sign up</h2>
+
+        <form method="post" th:action="${origin} + '/views/signup'">
+            <p><label for="username">
+                Username
+            </label></p>
+            <input id="username" name="username" type="text">
+            <p><label for="password">
+                Password
+            </label></p>
+            <input id="password" name="password" type="password">
+            <p><label for="confirm-password">
+                Confirm password
+            </label></p>
+            <input id="confirm-password" name="confirmPassword" type="password">
+            <p><button class="submit-button" type="submit">Signup</button></p>
+            <a th:href="${origin} + '/views/login'">Login</a>
+        </form>
+
+    </section>
+</section>
+
+
+</body>
+
 </html>
 ```
 
