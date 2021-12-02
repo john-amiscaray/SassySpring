@@ -1,29 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Montserrat:wght@700&family=Work+Sans:wght@300&display=swap");
-nav {
-  background-color: #022B3A;
-  color: white;
-  padding: 1em 2em;
-}
-
-nav .nav-main {
-  font-family: "Montserrat", sans-serif;
-  color: white;
-  text-decoration: none;
-  font-size: 1.5em;
-}
-
-nav .nav-option {
-  float: right;
-  color: white;
-  text-decoration: none;
-  font-size: 1em;
-  margin: auto 1.5em;
-}
-
-nav .nav-option:hover {
-  text-decoration: underline;
-}
-
 body {
   background-color: #E9EBF1;
   font-family: "Work Sans", sans-serif;

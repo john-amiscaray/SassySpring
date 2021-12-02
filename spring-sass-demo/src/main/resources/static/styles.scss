@@ -25,33 +25,6 @@ $text: 'Work Sans', sans-serif;
 
 // Note the nesting of elements:
 
-// navbar
-nav {
-    background-color: $nav-colour;
-    color: white;
-    padding: 1em 2em;
-    
-
-    .nav-main {
-        font-family: $titles;
-        color:white;
-        text-decoration: none;
-        font-size: 1.5em;
-    }
-
-    .nav-option {
-        float: right;
-        color: white;
-        text-decoration: none;
-        font-size: 1em;
-        margin: auto 1.5em;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
-}
-
 // general stuff
 
 body {
