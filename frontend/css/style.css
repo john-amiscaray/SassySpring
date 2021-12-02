@@ -1,18 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Montserrat:wght@700&family=Work+Sans:wght@300&display=swap");
-nav {
+.nav-desktop {
   background-color: #022B3A;
   color: white;
   padding: 1em 2em;
 }
 
-nav .nav-main {
+.nav-desktop .nav-main {
   font-family: "Montserrat", sans-serif;
   color: white;
   text-decoration: none;
   font-size: 1.5em;
 }
 
-nav .nav-option {
+.nav-desktop .nav-option {
   float: right;
   color: white;
   text-decoration: none;
@@ -20,7 +20,7 @@ nav .nav-option {
   margin: auto 1.5em;
 }
 
-nav .nav-option:hover {
+.nav-desktop .nav-option:hover {
   text-decoration: underline;
 }
 
