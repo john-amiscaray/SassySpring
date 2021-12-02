@@ -1,6 +1,6 @@
 // import fonts
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Work+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Montserrat:wght@700&family=Work+Sans:wght@300&display=swap');
 
 // Defining variables
 
@@ -15,6 +15,7 @@ $credits-colour: #E1E5F2;
 // font 
 $titles: 'Montserrat', sans-serif;
 $text: 'Work Sans', sans-serif;
+$code: 'Fira Code', monospace;
 
 // navbar
 nav {
@@ -71,6 +72,13 @@ h3 {
 p {
     font-family: $text;
     font-size: 16px;
+    padding: 0.2em;
+}
+
+code {
+    font-family: $code;
+    font-size: 16px;
+    padding:0.2em;
 }
 
 ul {
@@ -180,7 +188,72 @@ b {
     // }
 }
 
+.conclusion {
 
+    h1 {
+        text-align: left;
+        padding: 1em 0;
+    }
+
+    h3 {
+        padding: 0.5em 0;
+    }
+}
+
+.credits {
+    
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 2em;
+
+    .credit-desc {
+        width: 500px;
+        background-color: $credits-colour;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+        padding: 20px;
+       
+    }
+
+    .credit-top {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0.5em;
+
+        .name {
+            width: 400px;
+            flex: 45;
+        }
+
+        img {
+            width: 165px;
+            height: 165px;
+            object-fit: cover;
+            border-radius: 50%;
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+            
+        }
+        
+        p {
+            margin-top: 1.5em;
+        }
+    }
+
+    
+
+    ul {
+        margin-left: 1em;
+    }
+
+    li {
+        padding: 0.2em 0.5em;
+    }
+
+}
 
 
 

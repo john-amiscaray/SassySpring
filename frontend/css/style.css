@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Work+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Montserrat:wght@700&family=Work+Sans:wght@300&display=swap");
 nav {
   background-color: #022B3A;
   color: white;
@@ -50,6 +50,13 @@ h3 {
 p {
   font-family: "Work Sans", sans-serif;
   font-size: 16px;
+  padding: 0.2em;
+}
+
+code {
+  font-family: "Fira Code", monospace;
+  font-size: 16px;
+  padding: 0.2em;
 }
 
 ul {
@@ -173,5 +180,82 @@ b {
   border-radius: 5px;
   padding: 1.2em 2em;
   margin: 0.5em;
+}
+
+.conclusion h1 {
+  text-align: left;
+  padding: 1em 0;
+}
+
+.conclusion h3 {
+  padding: 0.5em 0;
+}
+
+.credits {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  gap: 2em;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 2em;
+}
+
+.credits .credit-desc {
+  width: 500px;
+  background-color: #E1E5F2;
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.credits .credit-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.credits .credit-top .name {
+  width: 400px;
+  -webkit-box-flex: 45;
+      -ms-flex: 45;
+          flex: 45;
+}
+
+.credits .credit-top img {
+  width: 165px;
+  height: 165px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  -webkit-filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+          filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.credits .credit-top p {
+  margin-top: 1.5em;
+}
+
+.credits ul {
+  margin-left: 1em;
+}
+
+.credits li {
+  padding: 0.2em 0.5em;
 }
 /*# sourceMappingURL=style.css.map */
