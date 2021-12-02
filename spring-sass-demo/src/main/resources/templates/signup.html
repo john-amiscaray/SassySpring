@@ -9,7 +9,6 @@
 </head>
 
 <body class="content">
-
     <section class="login">
         <section class="card">
             <p>Don't have an account yet?</p>
@@ -29,6 +28,7 @@
                     </label></p>
                 <input id="confirm-password" name="confirmPassword" type="password">
                 <p><button class="submit-button" type="submit">Signup</button></p>
+                <a th:href="${origin} + '/views/login'">Login</a>
             </form>
 
         </section>
