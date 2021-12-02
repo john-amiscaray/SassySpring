@@ -1,0 +1,110 @@
+// import fonts
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&family=Montserrat:wght@700&family=Work+Sans:wght@300&display=swap');
+
+// Defining variables
+
+// colours
+$nav-colour: #022B3A;
+$bg-colour: #E9EBF1;
+$link-colour: #1F7A8C;
+$win-colour: #DBEBFB;
+$button-colour: #EDD4D7;
+
+// font 
+$titles: 'Montserrat', sans-serif;
+$text: 'Work Sans', sans-serif;
+
+
+// navbar
+nav {
+    background-color: $nav-colour;
+    color: white;
+    padding: 1em 2em;
+    
+
+    .nav-main {
+        font-family: $titles;
+        color:white;
+        text-decoration: none;
+        font-size: 1.5em;
+    }
+
+    .nav-option {
+        float: right;
+        color: white;
+        text-decoration: none;
+        font-size: 1em;
+        margin: auto 1.5em;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// general stuff
+
+body {
+    background-color: $bg-colour;
+    font-family: $text;
+}
+
+h1 {
+    font-family: $titles;
+    font-size: 2.5em;
+    text-align: center;
+    padding: 0.5em;
+}
+
+h2 {
+    font-family: $titles;
+    font-size: 1.5em;
+}
+
+// content other than navbar
+.content {
+    padding: 2em 5em;
+}
+
+.login {
+    margin-top: 2em;
+    display: flex;
+    gap: 1.75em;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .card {
+        background-color: $win-colour;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+        padding: 1em;
+
+        p {
+            font-size: 1.2em;
+        }
+
+        form {
+            padding: 2em 0;
+            p {
+                font-size: 1em;
+                padding: 0.25em 0;
+            }
+
+            .submit-button {
+                background-color: $button-colour;
+                border: 1px solid;
+                border-radius: 5px;
+                font-size: 1.1em;
+                margin: 1em 0;
+                padding: 0.25em;
+                width: 3em;
+                height: auto;
+
+                &:hover {
+                    background-color: #1F7A8C;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Montserrat:wght@700&family=Work+Sans:wght@300&display=swap");
+nav {
+  background-color: #022B3A;
+  color: white;
+  padding: 1em 2em;
+}
+
+nav .nav-main {
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+nav .nav-option {
+  float: right;
+  color: white;
+  text-decoration: none;
+  font-size: 1em;
+  margin: auto 1.5em;
+}
+
+nav .nav-option:hover {
+  text-decoration: underline;
+}
+
+body {
+  background-color: #E9EBF1;
+  font-family: "Work Sans", sans-serif;
+}
+
+h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.5em;
+  text-align: center;
+  padding: 0.5em;
+}
+
+h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5em;
+}
+
+.content {
+  padding: 2em 5em;
+}
+
+.login {
+  margin-top: 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1.75em;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.login .card {
+  background-color: #DBEBFB;
+  -webkit-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  padding: 1em;
+}
+
+.login .card p {
+  font-size: 1.2em;
+}
+
+.login .card form {
+  padding: 2em 0;
+}
+
+.login .card form p {
+  font-size: 1em;
+  padding: 0.25em 0;
+}
+
+.login .card form .submit-button {
+  background-color: #EDD4D7;
+  border: 1px solid;
+  border-radius: 5px;
+  font-size: 1.1em;
+  margin: 1em 0;
+  padding: 0.25em;
+  width: 3em;
+  height: auto;
+}
+
+.login .card form .submit-button:hover {
+  background-color: #1F7A8C;
+}
+/*# sourceMappingURL=styles.css.map */
