@@ -1,5 +1,7 @@
 package us.john.hanna.cps530assignment.controllers;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import java.net.URI;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Api
 // @RestController specifies that this bean will be for managing REST endpoints
 @RestController
 // Prefix all the endpoints here with /api/todo
@@ -24,6 +27,7 @@ public class TodoController {
 
     // Map this method to the endpoint: GET /api/todo/allTodos
     @GetMapping("/allTodos")
+    @ApiOperation(value="Get all your to-dos", notes="requires authentication")
     public ResponseEntity<Set<TodoDto>> myTodos() throws BadAuthRequest {
 
         return ResponseEntity.ok(todoService.getAllTodos().stream()
@@ -35,6 +39,7 @@ public class TodoController {
     // Map this method to the endpoint: POST /api/todo
     // @RequestBody specifies that the following argument represents the request body
     @PostMapping
+    @ApiOperation(value="Post a new to-do", notes="requires authentication")
     public ResponseEntity<Void> postTodo(@RequestBody TodoDto dto) throws BadAuthRequest {
 
         Long todoId = todoService.createTodo(dto);
@@ -45,6 +50,7 @@ public class TodoController {
     // Map this method to the endpoint: GET /api/todo/{id} where id is the id of the TODO
     // @PathVariable specifies that the following argument is the path variable of {id} in the url
     @GetMapping("/{id}")
+    @ApiOperation(value="Get to-do by Id", notes="requires authentication")
     public ResponseEntity<TodoDto> getTodoById(@PathVariable("id") Long id) throws BadAuthRequest {
 
         return ResponseEntity.ok(todoService.getTodoById(id).toDto());
@@ -53,6 +59,7 @@ public class TodoController {
 
     // Map this method to the endpoint: PATCH /api/todo/{id} where id is the id of the TODO
     @PatchMapping("/{id}")
+    @ApiOperation(value="Update to-do by Id", notes="requires authentication")
     public ResponseEntity<Void> updateTodo(@PathVariable("id") Long id, @RequestBody TodoDto dto) throws BadAuthRequest {
 
         todoService.updateTodo(id, dto);
@@ -62,6 +69,7 @@ public class TodoController {
 
     // Map this method to the endpoint: DELETE /api/todo/{id} where id is the id of the TODO
     @DeleteMapping("/{id}")
+    @ApiOperation(value="Delete to-do by Id", notes="requires authentication")
     public ResponseEntity<Void> deleteTodo(@PathVariable("id") Long id) throws BadAuthRequest {
 
         todoService.deleteTodo(id);
