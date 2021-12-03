@@ -7,7 +7,7 @@
 // colours
 $nav-colour: #022B3A;
 $bg-colour: #E9EBF1;
-$link-colour: #1F7A8C;
+$link-colour: #124954;
 $win1-colour: #DBEBFB;
 $win2-colour: #EDD4D7;
 $credits-colour: #E1E5F2;
@@ -278,9 +278,12 @@ b {
 
 }
 
+.references {
+    text-align: center;
+}
+
 .tutorial-content {
     h1 {
-        text-align: left;
         padding: 1em 0;
     }
 
@@ -319,6 +322,9 @@ b {
 
         img {
             align-self: flex-start;
+            &:hover {
+                background-color: $link-colour;
+            }
         }
         
     }
@@ -335,6 +341,10 @@ b {
             color: white;
             text-decoration: none;
             padding: 0.5em;
+
+            &:hover {
+                background-color: $link-colour;
+            }
         }
     }
 
@@ -350,10 +360,16 @@ b {
 
     }
 
+    .summary {
+        img {
+            width: 70%;
+        }
+    }
+
     .framework-summary {
 
         padding: 1em;
-        margin: 0;
+        margin: none;
         gap: 0.5em;
         
         .intro {
@@ -377,11 +393,15 @@ b {
 
         .framework-info {
             
-            align-content: stretch;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            padding: 0;
 
             .characteristic {
                 width: auto;
                 padding: 1em;
+                min-width: 0;
             }
         }
     }
@@ -414,9 +434,6 @@ b {
         }
     }
 
-    .tutorial-content {
-
-    }
 
 }
 

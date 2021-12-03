@@ -279,8 +279,11 @@ b {
   padding: 0.2em 0.5em;
 }
 
+.references {
+  text-align: center;
+}
+
 .tutorial-content h1 {
-  text-align: left;
   padding: 1em 0;
 }
 
@@ -321,6 +324,9 @@ b {
     -ms-flex-item-align: start;
         align-self: flex-start;
   }
+  .nav-mobile img:hover {
+    background-color: #124954;
+  }
   .nav-menu-mobile {
     padding: 0.5em;
     display: none;
@@ -332,6 +338,9 @@ b {
     color: white;
     text-decoration: none;
     padding: 0.5em;
+  }
+  .nav-menu-mobile a:hover {
+    background-color: #124954;
   }
   h1 {
     font-size: 2em;
@@ -348,9 +357,12 @@ b {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
   }
+  .summary img {
+    width: 70%;
+  }
   .framework-summary {
     padding: 1em;
-    margin: 0;
+    margin: none;
     gap: 0.5em;
   }
   .framework-summary .intro {
@@ -377,12 +389,21 @@ b {
     margin: auto;
   }
   .framework-summary .framework-info {
-    -ms-flex-line-pack: stretch;
-        align-content: stretch;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    padding: 0;
   }
   .framework-summary .framework-info .characteristic {
     width: auto;
     padding: 1em;
+    min-width: 0;
   }
   .credits {
     -webkit-box-orient: vertical;
