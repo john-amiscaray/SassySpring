@@ -279,6 +279,10 @@ b {
   padding: 0.2em 0.5em;
 }
 
+.references {
+  text-align: center;
+}
+
 .tutorial-content h1 {
   padding: 1em 0;
 }
