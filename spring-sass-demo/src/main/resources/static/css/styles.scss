@@ -34,10 +34,6 @@ body {
     font-family: $text;
 }
 
-p {
-    text-align: center;
-}
-
 h1 {
     font-family: $titles;
     font-size: 2.5em;
@@ -76,6 +72,12 @@ footer {
 // content other than navbar
 .content {
     padding: 2em 5em;
+}
+
+.error {
+    p {
+        text-align: center;
+    }
 }
 
 .login {

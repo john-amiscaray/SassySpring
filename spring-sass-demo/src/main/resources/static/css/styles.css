@@ -4,10 +4,6 @@ body {
   font-family: "Work Sans", sans-serif;
 }
 
-p {
-  text-align: center;
-}
-
 h1 {
   font-family: "Montserrat", sans-serif;
   font-size: 2.5em;
@@ -45,6 +41,10 @@ footer p {
 
 .content {
   padding: 2em 5em;
+}
+
+.error p {
+  text-align: center;
 }
 
 .login {

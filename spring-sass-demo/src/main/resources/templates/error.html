@@ -5,9 +5,14 @@
         <title>Error</title>
         <link rel="stylesheet" th:href="@{/css/reset.css}">
         <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+        <!-- <link rel="stylesheet" href="../static/css/reset.css">
+        <link rel="stylesheet" href="../static/css/styles.css"> -->
     </head>
     <body>
-        <h1>An error occurred</h1>
-        <p th:text="${error}"></p>
+        <section class="error">
+            <h1>An error occurred</h1>
+            <p th:text="${error}"></p>
+        </section>
     </body>
 </html>
