@@ -1,5 +1,6 @@
 package us.john.hanna.cps530assignment.controllers;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -9,12 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import springfox.documentation.annotations.ApiIgnore;
 import us.john.hanna.cps530assignment.domain.LoginRequest;
 import us.john.hanna.cps530assignment.domain.SignupRequest;
 import us.john.hanna.cps530assignment.domain.TodoDto;
 
 import java.util.Map;
 
+@ApiIgnore
 @Controller
 @RequestMapping("views")
 public class ViewsController {
