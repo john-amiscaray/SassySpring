@@ -277,6 +277,7 @@ b {
 
 @media screen and (max-width: 830px) {
 
+    // mobile nav
     .nav-desktop {
         display: none;
     }
@@ -360,6 +361,34 @@ b {
             .characteristic {
                 width: auto;
                 padding: 1em;
+            }
+        }
+    }
+
+    .credits {
+        flex-direction: column;
+        
+        .credit-desc {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            width: auto;
+
+            li {
+                width: auto;
+            }
+
+            p {
+                width: auto;
+            }
+
+            .credit-top {
+                flex-direction: column;
+
+                .name {
+                    width: 300px;
+                }
             }
         }
     }
