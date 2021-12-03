@@ -14,6 +14,7 @@ import java.net.URI;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+// Include this controller in the API docs
 @Api
 // @RestController specifies that this bean will be for managing REST endpoints
 @RestController
@@ -27,6 +28,7 @@ public class TodoController {
 
     // Map this method to the endpoint: GET /api/todo/allTodos
     @GetMapping("/allTodos")
+    // ApiOperation is for specifying info for the API docs
     @ApiOperation(value="Get all your to-dos", notes="requires authentication")
     public ResponseEntity<Set<TodoDto>> myTodos() throws BadAuthRequest {
 
