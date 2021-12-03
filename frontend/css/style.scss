@@ -83,13 +83,17 @@ p {
     font-family: $text;
     font-size: 16px;
     padding: 0.2em;
+    line-height: 1.2em;
 }
 
 pre {
     display: block;
     overflow-x: scroll;
     overflow-y: hidden;
-    white-space: pre-wrap;
+    background-color: $credits-colour;
+    margin: 1em 0;
+    padding: 0.5em;
+    width: 80vw;
 }
 
 code {
@@ -275,7 +279,15 @@ b {
 .tutorial-content {
     h1 {
         text-align: left;
-        padding: auto 0;
+        padding: 1em 0;
+    }
+
+    ul {
+        padding-left: 2em 0.75em;
+    }
+
+    li {
+        padding: 0.5em 0;
     }
 }
 
