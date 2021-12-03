@@ -67,10 +67,10 @@ pre {
   display: block;
   overflow-x: scroll;
   overflow-y: hidden;
+  width: 80vw;
   background-color: #E1E5F2;
   margin: 1em 0;
   padding: 0.5em;
-  width: 80vw;
 }
 
 code {

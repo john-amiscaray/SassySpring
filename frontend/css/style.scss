@@ -87,13 +87,15 @@ p {
 }
 
 pre {
+    // used to add horizontal scrolling bar to code snippets
     display: block;
     overflow-x: scroll;
     overflow-y: hidden;
+    width: 80vw;
+    //
     background-color: $credits-colour;
     margin: 1em 0;
     padding: 0.5em;
-    width: 80vw;
 }
 
 code {

@@ -50,7 +50,7 @@
 
             <h1 id="sass-tut">Sass</h1>
             <h3>Intro</h3>
-            <p>Sass looks very similar to CSS, but it has a few tricks up their sleeve which
+            <p>Sass looks very similar to CSS, but it has a few tricks up its sleeve which
                 can help you organize your CSS and make it more modular than it was before. A
                 few simple features of Sass that will be covered are:</p>
 
@@ -60,7 +60,7 @@
                 <li>Nesting</li>
             </ul>
 
-            <p>There are other features of Sass that you can use like use like
+            <p>There are other features of Sass that you can use like
                 mathematical operators, extend/inheritance and modules which can
                 be found through the official website:
             </p>
@@ -72,13 +72,13 @@
             </p>
 
             <pre><code>
-            $bg-colour: #E9EBF1
+$bg-colour: #E9EBF1
             </code></pre>
 
             <p>You can also use them for fonts as well:</p>
 
             <pre><code>
-            $text: 'Work Sans', sans-serif;
+$text: 'Work Sans', sans-serif;
             </code></pre>
 
             <p>You typically declare them near the top of the SCSS file so you
@@ -86,10 +86,10 @@
             </p>
 
             <pre><code>
-            body {
-                background-color: $bg-colour;
-                font-family: $text;
-            }
+body {
+    background-color: $bg-colour;
+    font-family: $text;
+}
             </code></pre>
 
             <h3>Mixins</h3>
@@ -101,19 +101,19 @@
             </p>
 
             <pre><code>
-            // mixins, reuse this in each element I want to become a "card"
-            @mixin card-theme() {
-                background-color: $win-colour;
-                box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-                border-radius: 5px;
-                padding: 1em;
-            }
+// mixins, reuse this in each element I want to become a "card"
+@mixin card-theme() {
+    background-color: $win-colour;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding: 1em;
+}
             </code></pre>
 
             <p>Now whenever the line</p>
 
             <pre><code>
-            @include card-theme(); 
+@include card-theme(); 
             </code></pre>
 
             <p>is placed in an element, the CSS rules from the card theme
@@ -128,13 +128,13 @@
             </p>
 
             <pre><code>
-            form {
-                padding: 2em 0;
-                p {
-                    font-size: 1em;
-                    padding: 0.25em 0;
-                }
-            }
+form {
+    padding: 2em 0;
+    p {
+        font-size: 1em;
+        padding: 0.25em 0;
+    }
+}
             </code></pre>
 
             <p>This will only style p elements that are within a form element.</p>
@@ -146,6 +146,9 @@
                 that Sass offers. All the code snippets here were also used
                 in the tutorial website.
             </p>
+
+            <p>You can find the tutorial website <a href="https://spring-sass-fullstack-todo.herokuapp.com/views/signup">here</a></p>
+            
         </section>
 
         <section class="tutorial-content">
