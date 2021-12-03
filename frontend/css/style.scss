@@ -18,18 +18,27 @@ $text: 'Work Sans', sans-serif;
 $code: 'Fira Code', monospace;
 
 // navbar
+
+.nav-mobile {
+    display: none;
+}
+
+.nav-menu-mobile {
+    display: none;
+}
+
+.nav-main {
+    font-family: $titles;
+    color:white;
+    text-decoration: none;
+    font-size: 1.5em;
+}
 .nav-desktop {
     background-color: $nav-colour;
     color: white;
     padding: 1em 2em;
     
 
-    .nav-main {
-        font-family: $titles;
-        color:white;
-        text-decoration: none;
-        font-size: 1.5em;
-    }
 
     .nav-option {
         float: right;
@@ -74,6 +83,13 @@ p {
     font-family: $text;
     font-size: 16px;
     padding: 0.2em;
+}
+
+pre {
+    display: block;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: pre-wrap;
 }
 
 code {
@@ -264,7 +280,131 @@ b {
 }
 
 
+// mobile site:
 
+@media screen and (max-width: 830px) {
+
+    // mobile nav
+    .nav-desktop {
+        display: none;
+    }
+
+    .nav-mobile {
+        display: block;
+        background-color: $nav-colour;
+        padding: 0.5em;
+
+        section {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 1em;
+
+        }
+
+        img {
+            align-self: flex-start;
+        }
+        
+    }
+
+    .nav-menu-mobile {
+        padding: 0.5em;
+        display: none;
+        background-color: $nav-colour;
+
+
+        a {
+            display: block;
+            font-family: $text;
+            color: white;
+            text-decoration: none;
+            padding: 0.5em;
+        }
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .content {
+        padding: 1em 2em;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+    }
+
+    .framework-summary {
+
+        padding: 1em;
+        margin: 0;
+        gap: 0.5em;
+        
+        .intro {
+
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: center;
+            
+            p {
+                text-align: center;
+                width: auto;
+            }
+
+            img {
+                width: 200px;
+                height: auto;
+                margin: auto;
+            }
+        }
+
+        .framework-info {
+            
+            align-content: stretch;
+
+            .characteristic {
+                width: auto;
+                padding: 1em;
+            }
+        }
+    }
+
+    .credits {
+        flex-direction: column;
+        
+        .credit-desc {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            width: auto;
+
+            li {
+                width: auto;
+            }
+
+            p {
+                width: auto;
+            }
+
+            .credit-top {
+                flex-direction: column;
+
+                .name {
+                    width: 300px;
+                }
+            }
+        }
+    }
+
+    .tutorial-content {
+
+    }
+
+}
 
 
 

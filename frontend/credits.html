@@ -7,6 +7,7 @@
     <title>Sassy Spring</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/mobileNav.js"></script>
 </head>
 <body>
     <nav class="nav-desktop">
@@ -18,6 +19,21 @@
         <a href="installation.html" class="nav-option">Installation</a>
     </nav>
 
+    <nav class="nav-mobile">
+        <section>
+            <a href="javascript:void(0);" onclick="navToggle()"><img src="img/Menu.svg" alt="hamburger menu"></a>
+            <a href="index.html" class="nav-main">Sassy Spring</a>
+        </section>
+    </nav>
+
+    <nav class="nav-menu-mobile" id="navMobile">
+        <a href="installation.html" class="nav-option">Installation</a>
+        <a href="tutorial.html" class="nav-option">Tutorial</a>
+        <a target="_blank" href="https://spring-sass-fullstack-todo.herokuapp.com/views/signup" class="nav-option">Tutorial Page</a>
+        <a href="conclusion.html" class="nav-option">Conclusion</a>
+        <a href="credits.html" class="nav-option">Credits</a>
+    </nav>
+
     <main class="content">
         <h1>Credits</h1>
 
@@ -26,7 +42,8 @@
                 <div class="credit-top">
                     <div class="name">
                         <h2>John Amiscaray</h2>
-                        <p>Cool description very cool very nice. Cool description very cool very nice.</p>
+                        <p>I’m a second-year Computer Science student at Ryerson University.
+                             I love web development (mostly backend but I can do some frontend stuff) and music.</p>
                     </div>
                     <img src="img/john.jpg" alt="Image of John">
                 </div>
@@ -34,22 +51,23 @@
                 <div class="role">
                     <h3>Role</h3>
                     <ul>
-                        <li>Role1</li>
-                        <li>Role2</li>
+                        <li>Built the Spring Framework components of the demo project</li>
+                        <li>Wrote the Spring boot guide</li>
                     </ul>
                 </div>
 
                 <div class="contact">
-                    <p>Linkedin: <a href=""></a></p>
-                    <p>Github: <a href=""></a></p>
-                    <p>Website: <a href=""></a></p>
+                    <p>Linkedin: <a href="https://www.linkedin.com/in/john-amiscaray-7333a91b2/">linkedin.com/in/john-amiscaray-7333a91b2/</a></p>
+                    <p>Github: <a href="https://github.com/john-amiscaray">github.com/john-amiscaray</a></p>
+                    <p>Blog: <a href="https://john-amiscaray.io/">john-amiscaray.io/</a></p>
+                    <p>Programming Tutorials: <a href="https://www.section.io/engineering-education/authors/john-amiscaray/ ">section.io/engineering-education/authors/john-amiscaray/ </a></p>
                 </div>
             </div>
             <div class="credit-desc">
                 <div class="credit-top">
                     <div class="name">
                         <h2>Hanna Bobis</h2>
-                        <p>Cool description very cool very nice</p>
+                        <p>I’m a second-year Computer Science student studying at Ryerson University. I love UI/UX design almost as much as I love cats.</p>
                     </div>
                     <img src="img/hanna.jpg" alt="Image of Hanna">
                 </div>
@@ -57,15 +75,16 @@
                 <div class="role">
                     <h3>Role</h3>
                     <ul>
-                        <li>Role1</li>
-                        <li>Role2</li>
+                        <li>UX/UI design</li>
+                        <li>Sass framework</li>
+                        <li>Implemented design using Sass</li>
+                        <li>HTML pages for the main website</li>
                     </ul>
                 </div>
 
                 <div class="contact">
-                    <p>Linkedin: <a href=""></a></p>
-                    <p>Github: <a href=""></a></p>
-                    <p>Website: <a href=""></a></p>
+                    <p>Linkedin: <a href="https://www.linkedin.com/in/hanna-frances-b-9a38491b5/">linkedin.com/in/hanna-frances-b-9a38491b5/</a></p>
+                    <p>Github: <a href="https://github.com/Hanna-Frances">github.com/Hanna-Frances</a></p>
                 </div>
             </div>
         </section>
