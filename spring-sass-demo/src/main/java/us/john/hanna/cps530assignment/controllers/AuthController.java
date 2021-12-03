@@ -26,19 +26,29 @@ public class AuthController {
     @PostMapping("signup")
     // ApiOperation is for specifying info for the API docs
     @ApiOperation(value="Sign up", notes="Saves a new user to the database.")
-    public ResponseEntity<String> signUp(@RequestBody SignupRequest request) throws BadAuthRequest {
+    public ResponseEntity<String> signUp(@RequestBody SignupRequest request) {
 
-        authService.signUp(request);
-        return ResponseEntity.ok("signed up successfully");
+        try {
+            authService.signUp(request);
+            return ResponseEntity.ok("signed up successfully");
+        }catch (BadAuthRequest ex){
+            return ResponseEntity.badRequest()
+                    .body(ex.getMessage());
+        }
 
     }
 
     @PostMapping("login")
     @ApiOperation(value="Log in to the app", notes="Gives back a JWT token to authorize future requests. " +
             "Put the token in the Authorization header for authenticated requests like so: 'Bearer *token*' where *token* is the JWT.")
-    public ResponseEntity<String> login(@RequestBody LoginRequest request) throws BadAuthRequest {
+    public ResponseEntity<String> login(@RequestBody LoginRequest request){
 
-        return ResponseEntity.ok(authService.login(request));
+        try {
+            return ResponseEntity.ok(authService.login(request));
+        }catch (BadAuthRequest ex){
+            return ResponseEntity.badRequest()
+                    .body(ex.getMessage());
+        }
 
     }
 

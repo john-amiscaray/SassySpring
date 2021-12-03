@@ -13,4 +13,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
     // The Optional class is a wrapper class to provide null safety. It gives options for if the returned value is null.
     Optional<User> findByUsername(String username);
 
+    Boolean existsByUsername(String username);
+
 }
