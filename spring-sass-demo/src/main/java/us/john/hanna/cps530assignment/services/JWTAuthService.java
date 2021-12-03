@@ -17,7 +17,6 @@ import us.john.hanna.cps530assignment.domain.SignupRequest;
 import us.john.hanna.cps530assignment.entities.User;
 import us.john.hanna.cps530assignment.exceptions.BadAuthRequest;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
 import java.util.HashSet;
 

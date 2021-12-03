@@ -491,45 +491,44 @@ Notice how this form sends a **POST** request to http://localhost:8080/views/log
 // @RequestParam Map<String, String> body -> the key value pairs corresponding to form data
 public String getTodosPage(Model model, @RequestParam Map<String, String> body){
 
-  // LoginRequest is a class we created to represent a request body for the login endpoint of our API. It is just a POJO.
-  LoginRequest loginRequest = new LoginRequest(body.get("username"), body.get("password"));
-  // The org.springframework.web.client.RestTemplate class is for sending HTTP requests.
-  RestTemplate rest = new RestTemplate();
-  // Send a post request to our API to login using the loginRequest object as the request body
-  ResponseEntity<String> response = rest.postForEntity(origin + "/api/auth/login", new HttpEntity<>(loginRequest), String.class);
-  // Retrieve the security token (if successful) from the response
-  String token = response.getBody();
-  if(response.getStatusCode().is2xxSuccessful()){
+        try{
     
-      // Add the security token to the Authorization header
-      HttpHeaders headers = new HttpHeaders();
-      headers.set("Authorization", "Bearer " + token);
-      // Send an HTTP request to get all of this user's todos
-      ResponseEntity<TodoDto[]> todosResponse = rest.exchange(origin + "/api/todo/allTodos",
-              HttpMethod.GET, new HttpEntity(headers), TodoDto[].class);
+            // LoginRequest is a class we created to represent a request body for the login endpoint of our API. It is just a POJO.
+            LoginRequest loginRequest = new LoginRequest(body.get("username"), body.get("password"));
+            // The org.springframework.web.client.RestTemplate class is for sending HTTP requests.
+            RestTemplate rest = new RestTemplate();
+            // Send a post request to our API to login using the loginRequest object as the request body
+            ResponseEntity<String> response = rest.postForEntity(origin + "/api/auth/login", new HttpEntity<>(loginRequest), String.class);
     
-      if(todosResponse.getStatusCode().is2xxSuccessful()){
-
-          // Add the todos from this user on the todos page
-          model.addAttribute("todos", todosResponse.getBody());
-          // Send the security token to the todos-page (just in case)
-          model.addAttribute("token", token);
-          return "todos-page";
-
-      }else{
-  
-   // We won’t be showing this error page in the guide but you can infer what it will look like
-          model.addAttribute("error", "Error fetching your todos");
-          return "error";
-
-      }
-
-  }else{
+            try{
     
-      model.addAttribute("error", "Incorrect username or password. Please try again.");
-      return "error";
+                // Retrieve the security token (if successful) from the response
+                String token = response.getBody();
+                // Add the security token to the Authorization header
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("Authorization", "Bearer " + token);
+                // Send an HTTP request to get all of this user's todos
+                ResponseEntity<TodoDto[]> todosResponse = rest.exchange(origin + "/api/todo/allTodos",
+                HttpMethod.GET, new HttpEntity(headers), TodoDto[].class);
+                // Add the todos from this user on the todos page
+                model.addAttribute("todos", todosResponse.getBody());
+                // Send the security token to the todos-page (just in case)
+                model.addAttribute("token", token);
+                return "todos-page";
+    
+            }catch(HttpClientErrorException ex){
+    
+                model.addAttribute("error", "Error fetching your todos");
+                return "error";
+    
+            }
 
-  }
+        }catch(HttpClientErrorException ex){
+
+            model.addAttribute("error", "Incorrect username or password. Please try again.");
+            return "error";
+
+        }
 
 }
 ```
@@ -601,24 +600,25 @@ Notice how it sends a **POST** request to *http://localhost:8080/views/login*, l
 
 ```java
 @PostMapping("signup")
-// @RequestParam Map<String, String> body -> the key value pairs corresponding to form data
+// @RequestParam Map<String, String> body -> the key-value pairs corresponding to form data
 public String processSignUpForm(Model model, @RequestParam Map<String, String> body){
-   // SignupRequest is just a POJO with the username, password, and confirm password
-  SignupRequest signupRequest = new SignupRequest(body.get("username"), body.get("password"), body.get("confirmPassword"));
-  RestTemplate rest = new RestTemplate();
-  ResponseEntity<String> response = rest.postForEntity(origin + "/api/auth/signup",
-          new HttpEntity<>(signupRequest), String.class);
-  model.addAttribute("origin", origin);
-  if(response.getStatusCode().isError()){
 
-      model.addAttribute("error", response.getBody());
-      return "error";
+        // SignupRequest is just a POJO with the username, password, and confirm password
+        SignupRequest signupRequest = new SignupRequest(body.get("username"), body.get("password"), body.get("confirmPassword"));
+        RestTemplate rest = new RestTemplate();
 
-  }
-
-  return "successful-signup";
+        try {
+            ResponseEntity<String> response = rest.postForEntity(origin + "/api/auth/signup",
+            new HttpEntity<>(signupRequest), String.class);
+            model.addAttribute("origin", origin);
+            return "successful-signup";
+        }catch (HttpClientErrorException ex){
+            model.addAttribute("error", ex.getLocalizedMessage());
+            return "error";
+        }
 
 }
+
 ```
 From there, let’s build a simple page for when the user successfully signs up:
 
