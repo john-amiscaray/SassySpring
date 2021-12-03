@@ -16,7 +16,8 @@
         <a href="index.html" class="nav-main">Sassy Spring</a>
         <a href="credits.html" class="nav-option">Credits</a>
         <a href="conclusion.html" class="nav-option">Conclusion</a>
-        <a target="_blank" href="https://spring-sass-fullstack-todo.herokuapp.com/views/signup" class="nav-option">Tutorial Page</a>
+        <a target="_blank" href="https://spring-sass-fullstack-todo.herokuapp.com/views/signup"
+            class="nav-option">Tutorial Page</a>
         <a href="tutorial.html" class="nav-option">Tutorial</a>
         <a href="installation.html" class="nav-option">Installation</a>
     </nav>
@@ -31,7 +32,8 @@
     <nav class="nav-menu-mobile" id="navMobile">
         <a href="installation.html" class="nav-option">Installation</a>
         <a href="tutorial.html" class="nav-option">Tutorial</a>
-        <a target="_blank" href="https://spring-sass-fullstack-todo.herokuapp.com/views/signup" class="nav-option">Tutorial Page</a>
+        <a target="_blank" href="https://spring-sass-fullstack-todo.herokuapp.com/views/signup"
+            class="nav-option">Tutorial Page</a>
         <a href="conclusion.html" class="nav-option">Conclusion</a>
         <a href="credits.html" class="nav-option">Credits</a>
     </nav>
@@ -48,20 +50,20 @@
 
             <h1 id="sass-tut">Sass</h1>
             <h3>Intro</h3>
-                <p>Sass looks very similar to CSS, but it has a few tricks up their sleeve which 
-                    can help you organize your CSS and make it more modular than it was before. A 
-                    few simple features of Sass that will be covered are:</p>
-                
-                <ul>
-                    <li>Variables</li>
-                    <li>Mixins</li>
-                    <li>Nesting</li>
-                </ul>
+            <p>Sass looks very similar to CSS, but it has a few tricks up their sleeve which
+                can help you organize your CSS and make it more modular than it was before. A
+                few simple features of Sass that will be covered are:</p>
 
-                <p>There are other features of Sass that you can use like use like
-                    mathematical operators, extend/inheritance and modules which can 
-                    be found through the official website:
-                </p>
+            <ul>
+                <li>Variables</li>
+                <li>Mixins</li>
+                <li>Nesting</li>
+            </ul>
+
+            <p>There are other features of Sass that you can use like use like
+                mathematical operators, extend/inheritance and modules which can
+                be found through the official website:
+            </p>
             <a href="https://sass-lang.com/guide">https://sass-lang.com/guide</a>
 
             <h3>Variables</h3>
@@ -114,7 +116,7 @@
             @include card-theme(); 
             </code></pre>
 
-            <p>is placed in an element, the CSS rules from the card theme 
+            <p>is placed in an element, the CSS rules from the card theme
                 will be applied to the respectful element.
             </p>
 
@@ -138,16 +140,728 @@
             <p>This will only style p elements that are within a form element.</p>
 
             <h3>Conclusion</h3>
-            
+
             <p>This covers the very basics of using Sass, you can learn more by
-                going to the Sass website and finding the other cool features 
-                that Sass offers. All the code snippets here were also used 
+                going to the Sass website and finding the other cool features
+                that Sass offers. All the code snippets here were also used
                 in the tutorial website.
             </p>
         </section>
 
         <section class="tutorial-content">
             <h1 id="spring-tut">Spring</h1>
+
+            <h2 id="our-spring-demo-and-how-we-built-it">Our Spring Demo And How We Built it</h2>
+            <h3 id="what-is-the-project">What is the Project</h3>
+            <p>For our demo project, we built a simple full-stack CRUD todo application. Here, we will use Spring to
+                implement all the business logic, database connections, REST endpoints, and web pages.</p>
+            <p>We intentionally omitted some features so this guide doesn’t become overly long. As an added benefit,
+                these omitted features leave the users with an exercise to try out themselves! Despite this, the demo
+                should give a really good overview of the major features needed to make a full web application with the
+                Spring framework. We also won’t be styling the pages since that will be left for the Sass guide.</p>
+            <h3 id="initializing-the-project">Initializing the Project</h3>
+            <p>To start, go to the <a href="https://start.spring.io/">spring initializr</a> to initialize the Spring
+                Boot application. To build the project like how we did, you will need to select the following:</p>
+            <ul>
+                <li>Maven as the build tool</li>
+                <li>Java as the language</li>
+                <li>2.6.0 as the Spring Boot version</li>
+                <li>Jar as the packaging</li>
+                <li>Java version 11</li>
+            </ul>
+            <p>along with the appropriate project metadata of your choice. For the dependencies, we used the following:
+            </p>
+            <ul>
+                <li>Spring Data JPA for database operations</li>
+                <li>Spring Security for authentication and authorization</li>
+                <li>Thymeleaf as the templating engine</li>
+                <li>Spring Web to create REST endpoints or view mappings (note you may opt to use the reactive web
+                    dependency and a NoSQL database instead if you wish to leverage reactive programming. For
+                    simplicity, we will not do this)</li>
+                <li>The H2 database dependency for an in-memory database suitable for a development environment</li>
+                <li>The MySQL driver dependency for use in production (note we won’t be showing how to deploy this to
+                    production)</li>
+                <li>Lombok to reduce the amount of boilerplate code</li>
+            </ul>
+            <p>From there, you can download the project by selecting the generate button.</p>
+            <h3 id="setting-up-the-database">Setting up the database</h3>
+            <p>Spring gives you powerful functionality to manage a database with little to no SQL code involved. For
+                instance, we can leverage a tool called <strong>Hibernate</strong> to automatically generate a database
+                using simple Java classes. The classes we create will represent database entities that Hibernate will
+                use to create the tables for us. Throughout this guide, I will refer to these classes as entities.</p>
+            <p>To start, let’s create what’s called a <em>base entity</em> which is just a superclass our entities will
+                inherit from:</p>
+            <pre class=" language-java"><code class="prism  language-java"><span class="token keyword">package</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>entities<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>Data<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>persistence<span class="token punctuation">.</span>GeneratedValue<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>persistence<span class="token punctuation">.</span>GenerationType<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>persistence<span class="token punctuation">.</span>Id<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>persistence<span class="token punctuation">.</span>MappedSuperclass<span class="token punctuation">;</span>
+
+<span class="token comment">// MappedSuperclass signifies this will be a superclass for our entities</span>
+<span class="token annotation punctuation">@MappedSuperclass</span>
+<span class="token comment">/*
+Data is a lombok annotation to implicitly generate toString, hashCode, equals, getters, setters, and a constructor to set the fields in this class!
+*/</span>
+<span class="token annotation punctuation">@Data</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BaseEntity</span> <span class="token punctuation">{</span>
+   <span class="token comment">// @Id specifies that this field will be the id for any entity inheriting this</span>
+   <span class="token annotation punctuation">@Id</span>
+   <span class="token comment">// @GeneratedValue specifies that this id will be autogenerated by hibernate</span>
+   <span class="token annotation punctuation">@GeneratedValue</span><span class="token punctuation">(</span>strategy <span class="token operator">=</span> GenerationType<span class="token punctuation">.</span>AUTO<span class="token punctuation">)</span>
+   <span class="token keyword">private</span> Long id<span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+            <p>Next, let’s create a <code>Todo</code> entity to represent items in the to-do list:</p>
+            <pre class=" language-java"><code class="prism  language-java"><span class="token keyword">package</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>entities<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>AllArgsConstructor<span class="token punctuation">;</span>
+<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>Getter<span class="token punctuation">;</span>
+<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>NoArgsConstructor<span class="token punctuation">;</span>
+<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>Setter<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>TodoDto<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>persistence<span class="token punctuation">.</span>Entity<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>persistence<span class="token punctuation">.</span>ManyToOne<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>Timestamp<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Entity</span>
+<span class="token annotation punctuation">@AllArgsConstructor</span>
+<span class="token annotation punctuation">@NoArgsConstructor</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Todo</span> <span class="token keyword">extends</span> <span class="token class-name">BaseEntity</span> <span class="token punctuation">{</span>
+
+   <span class="token comment">// @Getter creates a getter and @Setter creates a setter</span>
+   <span class="token annotation punctuation">@Getter</span>
+   <span class="token annotation punctuation">@Setter</span>
+   <span class="token keyword">private</span> String subject<span class="token punctuation">;</span>
+   <span class="token annotation punctuation">@Getter</span>
+   <span class="token annotation punctuation">@Setter</span>
+   <span class="token keyword">private</span> Timestamp dueDate<span class="token punctuation">;</span>
+
+   <span class="token comment">// Many todos will be owned by one user</span>
+   <span class="token annotation punctuation">@ManyToOne</span>
+   <span class="token keyword">private</span> User owner<span class="token punctuation">;</span>
+
+   <span class="token keyword">public</span> <span class="token function">Todo</span><span class="token punctuation">(</span>Long id<span class="token punctuation">,</span> String subject<span class="token punctuation">,</span> Timestamp dueDate<span class="token punctuation">,</span> User owner<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token keyword">this</span><span class="token punctuation">.</span>subject <span class="token operator">=</span> subject<span class="token punctuation">;</span>
+       <span class="token keyword">this</span><span class="token punctuation">.</span>dueDate <span class="token operator">=</span> dueDate<span class="token punctuation">;</span>
+       <span class="token keyword">this</span><span class="token punctuation">.</span>owner <span class="token operator">=</span> owner<span class="token punctuation">;</span>
+       <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+
+   <span class="token comment">/*
+   Create an Instance of TodoDto using this class. TodoDto is just a POJO that will later be used to represent HTTP responses. The TodoDto class simply contains an id, due date (long epoch time), and the subject of the to-do.
+    */</span>
+   <span class="token keyword">public</span> TodoDto <span class="token function">toDto</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+       <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">TodoDto</span><span class="token punctuation">(</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> dueDate<span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> subject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+            <p>As our last entity, we need to create a <code>User</code> class:</p>
+            <pre class=" language-java"><code class="prism  language-java"><span class="token keyword">package</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>entities<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>*<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>persistence<span class="token punctuation">.</span>Column<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>persistence<span class="token punctuation">.</span>Entity<span class="token punctuation">;</span>
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>persistence<span class="token punctuation">.</span>OneToMany<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Entity</span>
+<span class="token annotation punctuation">@AllArgsConstructor</span>
+<span class="token annotation punctuation">@NoArgsConstructor</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token keyword">extends</span> <span class="token class-name">BaseEntity</span><span class="token punctuation">{</span>
+
+   <span class="token annotation punctuation">@Getter</span>
+   <span class="token annotation punctuation">@Setter</span>
+   <span class="token comment">// No user can have the same username</span>
+   <span class="token annotation punctuation">@Column</span><span class="token punctuation">(</span>unique <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+   <span class="token keyword">private</span> String username<span class="token punctuation">;</span>
+   <span class="token annotation punctuation">@Getter</span>
+   <span class="token annotation punctuation">@Setter</span>
+   <span class="token keyword">private</span> String password<span class="token punctuation">;</span>
+
+   <span class="token comment">/*
+    One user will own many todos. Map the entity-relationship based on the *owner* field in the Todo entity.
+    This adds the id of the user as a field on the Todo table.
+    */</span>
+   <span class="token annotation punctuation">@OneToMany</span><span class="token punctuation">(</span>mappedBy <span class="token operator">=</span> <span class="token string">"owner"</span><span class="token punctuation">)</span>
+   <span class="token annotation punctuation">@Getter</span>
+   <span class="token annotation punctuation">@Setter</span>
+   <span class="token keyword">private</span> Set<span class="token operator">&lt;</span>Todo<span class="token operator">&gt;</span> todos<span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+            <p>Finally, to set up our database properly, we need to add some configurations. In the
+                <code>src/main/resources</code> folder, create a file called <code>application-dev.properties</code>
+                with the following configurations:</p>
+            <pre class=" language-properties"><code class="prism  language-properties"><span class="token attr-name">spring.datasource.url</span><span class="token punctuation">=</span><span class="token attr-value">jdbc:h2:mem:testdb</span>
+<span class="token attr-name">spring.datasource.driverClassName</span><span class="token punctuation">=</span><span class="token attr-value">org.h2.Driver</span>
+<span class="token attr-name">spring.datasource.username</span><span class="token punctuation">=</span><span class="token attr-value">sa</span>
+<span class="token attr-name">spring.datasource.password</span><span class="token punctuation">=</span><span class="token attr-value">password</span>
+<span class="token attr-name">spring.jpa.database-platform</span><span class="token punctuation">=</span><span class="token attr-value">org.hibernate.dialect.H2Dialect</span>
+<span class="token attr-name">spring.h2.console.enabled</span><span class="token punctuation">=</span><span class="token attr-value">true</span>
+</code></pre>
+            <p>Note, since the file we made is called <code>application-dev.properties</code> we need to tell Spring we
+                are in a <strong>dev</strong> environment for these properties to be active. To do this, set the command
+                line argument <code>Dspring.profiles.active</code> to <code>dev</code>. Doing so will make the
+                properties in that file active, and override any conflicting settings in
+                <code>application.properties</code>. From there, to run the application, go to <em><a
+                        href="http://localhost:8080/h2-console">http://localhost:8080/h2-console</a></em>, log in to the
+                database administration page with the above username and password, and verify that the tables were
+                created.</p>
+            <blockquote>
+                <p>Note: you may want to temporarily disable spring-security when doing this as it may interfere with
+                    you accessing the h2 console. Simply comment out the spring-security dependency in the pom.xml file
+                </p>
+            </blockquote>
+            <h3 id="querying-the-database">Querying the Database</h3>
+            <p>Now that we created code to generate our database, we need a way to query it. Lucky for us, Spring Data
+                JPA makes it easy. To query users in our database, we just need to make a simple interface:</p>
+            <pre class=" language-java"><code class="prism  language-java"><span class="token keyword">package</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>jpa<span class="token punctuation">.</span>repository<span class="token punctuation">.</span>JpaRepository<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Repository<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>entities<span class="token punctuation">.</span>User<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Optional<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Repository</span>
+<span class="token comment">// The type arguments must be the entity you want to query followed by the type of its ID</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserRepo</span> <span class="token keyword">extends</span> <span class="token class-name">JpaRepository</span><span class="token operator">&lt;</span>User<span class="token punctuation">,</span> Long<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+
+   <span class="token comment">// The Optional class is a wrapper class to provide null safety. It gives options for if the returned value is null.</span>
+   Optional<span class="token operator">&lt;</span>User<span class="token operator">&gt;</span> <span class="token function">findByUsername</span><span class="token punctuation">(</span>String username<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+            <p>Notice how we annotate it with <code>@Repositiory</code>. This marks the class as a Spring-managed
+                component (bean). This indicates that Spring will make an instance of this interface at runtime and
+                provide it to any other bean that needs to use it. This is called <strong>dependency injection</strong>
+                and is a huge part of the Spring framework. Any classes marked with <code>@Component</code>,
+                <code>@Service</code>, <code>@Repository</code>, <code>@Controller</code>, <code>@Configuration</code>,
+                or <code>@RestController</code> are marked as beans. This means that Spring will create a singleton
+                instance of it at runtime (you can change the scope if you don’t want it to be a singleton but that is
+                usually not necessary). Any of these beans then can make use of other beans by requiring an instance of
+                it in their constructor.</p>
+            <p>In the above interface, we have a special instance of dependency injection where Spring will generate the
+                implementation of the interface for us and use that as the bean. Behind the scenes, the
+                <code>findByUsername</code> method will invoke an SQL query to search for users based on their username.
+                Any methods here must be precisely named for Spring to create the implementation with the correct query.
+                If there is an error in the naming convention, the application will fail to run. For more complex
+                queries, use the <code>@Query</code> annotation to specify what query to use for that method. Aside from
+                that, there are many other methods inherited from <code>JpaRepository</code> that you may use to query
+                the database. With that newly created interface, we can then inject it into any other bean to suit our
+                needs.</p>
+            <p>Now we can also make a <code>TodoRepo</code> interface to query for to-do list items:</p>
+            <pre class=" language-java"><code class="prism  language-java"><span class="token keyword">package</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>jpa<span class="token punctuation">.</span>repository<span class="token punctuation">.</span>JpaRepository<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Repository<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>entities<span class="token punctuation">.</span>Todo<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>entities<span class="token punctuation">.</span>User<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Optional<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Repository</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">TodoRepo</span> <span class="token keyword">extends</span> <span class="token class-name">JpaRepository</span><span class="token operator">&lt;</span>Todo<span class="token punctuation">,</span> Long<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+
+   Set<span class="token operator">&lt;</span>Todo<span class="token operator">&gt;</span> <span class="token function">findAllByOwner</span><span class="token punctuation">(</span>User owner<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token comment">// The Optional class is a wrapper class to provide null safety. It gives options for if the returned value is null.</span>
+   Optional<span class="token operator">&lt;</span>Todo<span class="token operator">&gt;</span> <span class="token function">findByOwnerAndId</span><span class="token punctuation">(</span>User owner<span class="token punctuation">,</span> Long id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   Boolean <span class="token function">existsByOwnerAndId</span><span class="token punctuation">(</span>User user<span class="token punctuation">,</span> Long id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+            <h3 id="implementing-login-and-sign-rest-endpoints">Implementing Login And Sign REST endpoints</h3>
+            <p>Doing this gets rather involved and I can’t fit all the source code and concepts in an easily digestible
+                format. However, we will go over the gist of how our security systems are implemented and you can check
+                out my full guide on Spring Security <a
+                    href="https://www.section.io/engineering-education/an-all-in-one-spring-security-crash-course-for-java-developers/">here</a>.
+                Alongside that, you can always check out our repository for the full implementation. I will be sure to
+                add detailed comments to it where needed. In a nutshell, we add the following to our project:</p>
+            <ol>
+                <li>Auth0’s JWT maven dependency:</li>
+            </ol>
+            <pre class=" language-xml"><code class="prism  language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">&gt;</span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">&gt;</span></span>com.auth0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">&gt;</span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">&gt;</span></span>java-jwt<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">&gt;</span></span>
+       <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">&gt;</span></span>3.10.3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+            <p>This is for us to create security tokens to authenticate and/or authorize a user.</p>
+            <ol start="2">
+                <li>An <code>app.secret</code> property in our <code>application-dev.properties</code> file which we
+                    will use to help generate our security tokens. The value can be any string but for a production
+                    environment, I like to use a secure password generator to create the value.</li>
+                <li>A <code>JWTAuthService</code> class to save new users, generate security tokens, log in the user,
+                    and get the currently signed-in user. This is an implementation of a generic
+                    <code>AuthService</code> interface we created as part of the project.</li>
+                <li>An implementation of Spring Security’s <code>UserDetails</code> interface which we named
+                    <code>UserDetailsImpl</code>. This is just a wrapper class for our <code>User</code> entity which
+                    provides info like the account activation status.</li>
+                <li>An implementation of Spring Security’s <code>UserDetailsService</code> interface which we named
+                    <code>UserDetailsServiceImpl</code>. This is for Spring to be able to find a user’s corresponding
+                    <code>UserDetails</code> based on their username.</li>
+                <li>An implementation of Spring Security’s <code>AuthenticationManager</code> interface which we named
+                    <code>AuthManagerImpl</code>. This is to validate the credentials of a user.</li>
+                <li>A <code>JWTFilter</code> class that extends Spring Security’s <code>BasicAuthenticationFilter</code>
+                    class. This class will be used to intercept any HTTP requests and use our
+                    <code>AuthManagerImpl</code> to verify the security token. The security token needs to be placed in
+                    the Authorization header of each request like so: <em>Bearer </em>.</li>
+                <li>A <code>SecurityBeans</code> class. This contains a method with the <code>@Bean</code> annotation
+                    that returns a <code>BCryptPasswordEncoder</code> object. The <code>@Bean</code> annotation
+                    specifies that the password encoder returned is a Spring-managed instance. The
+                    <code>SecurityBeans</code> class must also be a bean for this to work. We make it a bean by adding
+                    the <code>@Configuration</code> annotation to it.</li>
+                <li>A <code>SecurityConfig</code> class that extends the <code>WebSecurityConfigurerAdapter</code> class
+                    from Spring Security. This class will set the <code>UserDetailsService</code> implementation Spring
+                    will use (the implementation we created) and the password encoder (the bean we created). As well, we
+                    use this class to tell Spring that we want it to apply our <code>JWTFilter</code> to intercept
+                    incoming requests. Lastly, this class configures specific endpoints for Spring Security to ignore
+                    securing. These include the login and signup endpoints and endpoints needed for the autogenerated
+                    documentation (we won’t be including how to generate the documentation in the guide).</li>
+                <li>An <code>AuthController</code> class configuring REST endpoints a frontend would use to login and
+                    signup.</li>
+            </ol>
+            <blockquote>
+                <p>Again, be sure to look through the implementation of each of the classes mentioned here for a full
+                    understanding of our security framework.</p>
+            </blockquote>
+            <h3 id="creating-a-todoservice">Creating a TodoService</h3>
+            <p>Now, let’s create a <code>TodoService</code> interface to manage a user’s to-do list:</p>
+            <pre class=" language-java"><code class="prism  language-java"><span class="token keyword">package</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>services<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>TodoDto<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>entities<span class="token punctuation">.</span>Todo<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>exceptions<span class="token punctuation">.</span>BadAuthRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>exceptions<span class="token punctuation">.</span>TodoNotFoundException<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">TodoService</span> <span class="token punctuation">{</span>
+
+   Set<span class="token operator">&lt;</span>Todo<span class="token operator">&gt;</span> <span class="token function">getAllTodos</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> BadAuthRequest<span class="token punctuation">;</span>
+
+   Todo <span class="token function">getTodoById</span><span class="token punctuation">(</span>Long id<span class="token punctuation">)</span> <span class="token keyword">throws</span> TodoNotFoundException<span class="token punctuation">,</span> BadAuthRequest<span class="token punctuation">;</span>
+
+   <span class="token keyword">void</span> <span class="token function">deleteTodo</span><span class="token punctuation">(</span>Long id<span class="token punctuation">)</span> <span class="token keyword">throws</span> TodoNotFoundException<span class="token punctuation">,</span> BadAuthRequest<span class="token punctuation">;</span>
+
+   <span class="token keyword">void</span> <span class="token function">updateTodo</span><span class="token punctuation">(</span>Long id<span class="token punctuation">,</span> TodoDto dto<span class="token punctuation">)</span> <span class="token keyword">throws</span> TodoNotFoundException<span class="token punctuation">,</span> BadAuthRequest<span class="token punctuation">;</span>
+
+   Long <span class="token function">createTodo</span><span class="token punctuation">(</span>TodoDto dto<span class="token punctuation">)</span> <span class="token keyword">throws</span> BadAuthRequest<span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+            <p>We want to make an interface first as best practice and inject a generic <code>TodoService</code> to our
+                components to allow for flexibility. This way, we can, if needed, create multiple beans that implement
+                <code>TodoService</code> and inject them into our components depending on the environment to suit our
+                needs. This could also be used if we need to depreciate an implementation of <code>TodoService</code>
+                without having to change much code. Anyways, here is the implementation:</p>
+            <pre class=" language-java"><code class="prism  language-java"><span class="token keyword">package</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>services<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>AllArgsConstructor<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Service<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>data<span class="token punctuation">.</span>TodoRepo<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>TodoDto<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>entities<span class="token punctuation">.</span>Todo<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>exceptions<span class="token punctuation">.</span>BadAuthRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>exceptions<span class="token punctuation">.</span>TodoNotFoundException<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>Timestamp<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Service</span>
+<span class="token annotation punctuation">@AllArgsConstructor</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TodoServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">TodoService</span> <span class="token punctuation">{</span>
+
+  <span class="token comment">// These two fields are injected via the all args constructor generated by the above annotation</span>
+  <span class="token keyword">private</span> TodoRepo todoRepo<span class="token punctuation">;</span>
+  <span class="token keyword">private</span> AuthService authService<span class="token punctuation">;</span>
+
+  <span class="token comment">// BadAuthRequest is a simple custom exception</span>
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> Set<span class="token operator">&lt;</span>Todo<span class="token operator">&gt;</span> <span class="token function">getAllTodos</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> BadAuthRequest <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> todoRepo<span class="token punctuation">.</span><span class="token function">findAllByOwner</span><span class="token punctuation">(</span>authService<span class="token punctuation">.</span><span class="token function">getCurrentlySignedInUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// TodoNotFoundException is a simple custom exception</span>
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> Todo <span class="token function">getTodoById</span><span class="token punctuation">(</span>Long id<span class="token punctuation">)</span> <span class="token keyword">throws</span> TodoNotFoundException<span class="token punctuation">,</span> BadAuthRequest <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> todoRepo<span class="token punctuation">.</span><span class="token function">findByOwnerAndId</span><span class="token punctuation">(</span>authService<span class="token punctuation">.</span><span class="token function">getCurrentlySignedInUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> id<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span>TodoNotFoundException<span class="token operator">:</span><span class="token operator">:</span><span class="token keyword">new</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">deleteTodo</span><span class="token punctuation">(</span>Long id<span class="token punctuation">)</span> <span class="token keyword">throws</span> TodoNotFoundException<span class="token punctuation">,</span> BadAuthRequest <span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>todoRepo<span class="token punctuation">.</span><span class="token function">existsByOwnerAndId</span><span class="token punctuation">(</span>authService<span class="token punctuation">.</span><span class="token function">getCurrentlySignedInUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> id<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">TodoNotFoundException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      todoRepo<span class="token punctuation">.</span><span class="token function">deleteById</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">updateTodo</span><span class="token punctuation">(</span>Long id<span class="token punctuation">,</span> TodoDto dto<span class="token punctuation">)</span> <span class="token keyword">throws</span> TodoNotFoundException<span class="token punctuation">,</span> BadAuthRequest <span class="token punctuation">{</span>
+
+      Todo original <span class="token operator">=</span> todoRepo<span class="token punctuation">.</span><span class="token function">findByOwnerAndId</span><span class="token punctuation">(</span>authService<span class="token punctuation">.</span><span class="token function">getCurrentlySignedInUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> id<span class="token punctuation">)</span>
+              <span class="token punctuation">.</span><span class="token function">orElseThrow</span><span class="token punctuation">(</span>TodoNotFoundException<span class="token operator">:</span><span class="token operator">:</span><span class="token keyword">new</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      Timestamp due <span class="token operator">=</span> dto<span class="token punctuation">.</span><span class="token function">getDueDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> null <span class="token operator">?</span> original<span class="token punctuation">.</span><span class="token function">getDueDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Timestamp</span><span class="token punctuation">(</span>dto<span class="token punctuation">.</span><span class="token function">getDueDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      String subject <span class="token operator">=</span> dto<span class="token punctuation">.</span><span class="token function">getSubject</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> null <span class="token operator">?</span> original<span class="token punctuation">.</span><span class="token function">getSubject</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> dto<span class="token punctuation">.</span><span class="token function">getSubject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      todoRepo<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Todo</span><span class="token punctuation">(</span>id<span class="token punctuation">,</span> subject<span class="token punctuation">,</span> due<span class="token punctuation">,</span>
+              authService<span class="token punctuation">.</span><span class="token function">getCurrentlySignedInUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> Long <span class="token function">createTodo</span><span class="token punctuation">(</span>TodoDto dto<span class="token punctuation">)</span> <span class="token keyword">throws</span> BadAuthRequest <span class="token punctuation">{</span>
+
+      Todo todo <span class="token operator">=</span> todoRepo<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Todo</span><span class="token punctuation">(</span>dto<span class="token punctuation">.</span><span class="token function">getSubject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Timestamp</span><span class="token punctuation">(</span>dto<span class="token punctuation">.</span><span class="token function">getDueDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+              authService<span class="token punctuation">.</span><span class="token function">getCurrentlySignedInUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> todo<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+            <h3 id="creating-endpoints-to-expose-our-service">Creating Endpoints to Expose our Service</h3>
+            <p>With that service created, let’s create REST endpoints that will make use of it:</p>
+            <pre class=" language-java"><code class="prism  language-java"><span class="token keyword">package</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>controllers<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>AllArgsConstructor<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>http<span class="token punctuation">.</span>ResponseEntity<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>*<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>domain<span class="token punctuation">.</span>TodoDto<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>entities<span class="token punctuation">.</span>Todo<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>exceptions<span class="token punctuation">.</span>BadAuthRequest<span class="token punctuation">;</span>
+<span class="token keyword">import</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>services<span class="token punctuation">.</span>TodoService<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>net<span class="token punctuation">.</span>URI<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>stream<span class="token punctuation">.</span>Collectors<span class="token punctuation">;</span>
+
+<span class="token comment">// @RestController specifies that this bean will be for managing REST endpoints</span>
+<span class="token annotation punctuation">@RestController</span>
+<span class="token comment">// Prefix all the endpoints here with /api/todo</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/api/todo"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@AllArgsConstructor</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TodoController</span> <span class="token punctuation">{</span>
+
+   <span class="token comment">// This field is injected via the all args constructor generated by the annotation above</span>
+   <span class="token keyword">private</span> <span class="token keyword">final</span> TodoService todoService<span class="token punctuation">;</span>
+
+   <span class="token comment">// Map this method to the endpoint: GET /api/todo/allTodos</span>
+   <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/allTodos"</span><span class="token punctuation">)</span>
+   <span class="token keyword">public</span> ResponseEntity<span class="token operator">&lt;</span>Set<span class="token operator">&lt;</span>TodoDto<span class="token operator">&gt;&gt;</span> <span class="token function">myTodos</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> BadAuthRequest <span class="token punctuation">{</span>
+      
+           <span class="token keyword">return</span> ResponseEntity<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span>todoService<span class="token punctuation">.</span><span class="token function">getAllTodos</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                   <span class="token comment">// convert all the Todos to instances of TodoDto</span>
+                   <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>Todo<span class="token operator">:</span><span class="token operator">:</span>toDto<span class="token punctuation">)</span>
+                   <span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span>Collectors<span class="token punctuation">.</span><span class="token function">toSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token punctuation">}</span>
+
+   <span class="token comment">// Map this method to the endpoint: POST /api/todo</span>
+   <span class="token comment">// @RequestBody specifies that the following argument represents the request body </span>
+   <span class="token annotation punctuation">@PostMapping</span>
+   <span class="token keyword">public</span> ResponseEntity<span class="token operator">&lt;</span>Void<span class="token operator">&gt;</span> <span class="token function">postTodo</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestBody</span> TodoDto dto<span class="token punctuation">)</span> <span class="token keyword">throws</span> BadAuthRequest <span class="token punctuation">{</span>
+
+           Long todoId <span class="token operator">=</span> todoService<span class="token punctuation">.</span><span class="token function">createTodo</span><span class="token punctuation">(</span>dto<span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token keyword">return</span> ResponseEntity<span class="token punctuation">.</span><span class="token function">created</span><span class="token punctuation">(</span>URI<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token string">"/todo/"</span> <span class="token operator">+</span> todoId<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token punctuation">}</span>
+
+   <span class="token comment">// Map this method to the endpoint: GET /api/todo/{id} where id is the id of the TODO</span>
+   <span class="token comment">// @PathVariable specifies that the following argument is the path variable of {id} in the url</span>
+   <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/{id}"</span><span class="token punctuation">)</span>
+   <span class="token keyword">public</span> ResponseEntity<span class="token operator">&lt;</span>TodoDto<span class="token operator">&gt;</span> <span class="token function">getTodoById</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> Long id<span class="token punctuation">)</span> <span class="token keyword">throws</span> BadAuthRequest <span class="token punctuation">{</span>
+
+           <span class="token keyword">return</span> ResponseEntity<span class="token punctuation">.</span><span class="token function">ok</span><span class="token punctuation">(</span>todoService<span class="token punctuation">.</span><span class="token function">getTodoById</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toDto</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token punctuation">}</span>
+
+   <span class="token comment">// Map this method to the endpoint: PATCH /api/todo/{id} where id is the id of the TODO</span>
+   <span class="token annotation punctuation">@PatchMapping</span><span class="token punctuation">(</span><span class="token string">"/{id}"</span><span class="token punctuation">)</span>
+   <span class="token keyword">public</span> ResponseEntity<span class="token operator">&lt;</span>Void<span class="token operator">&gt;</span> <span class="token function">updateTodo</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> Long id<span class="token punctuation">,</span> <span class="token annotation punctuation">@RequestBody</span> TodoDto dto<span class="token punctuation">)</span> <span class="token keyword">throws</span> BadAuthRequest <span class="token punctuation">{</span>
+
+           todoService<span class="token punctuation">.</span><span class="token function">updateTodo</span><span class="token punctuation">(</span>id<span class="token punctuation">,</span> dto<span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token keyword">return</span> ResponseEntity<span class="token punctuation">.</span><span class="token function">created</span><span class="token punctuation">(</span>URI<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token string">"/todo/"</span> <span class="token operator">+</span> id<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token punctuation">}</span>
+
+   <span class="token comment">// Map this method to the endpoint: DELETE /api/todo/{id} where id is the id of the TODO</span>
+   <span class="token annotation punctuation">@DeleteMapping</span><span class="token punctuation">(</span><span class="token string">"/{id}"</span><span class="token punctuation">)</span>
+   <span class="token keyword">public</span> ResponseEntity<span class="token operator">&lt;</span>Void<span class="token operator">&gt;</span> <span class="token function">deleteTodo</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> Long id<span class="token punctuation">)</span> <span class="token keyword">throws</span> BadAuthRequest <span class="token punctuation">{</span>
+
+           todoService<span class="token punctuation">.</span><span class="token function">deleteTodo</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token keyword">return</span> ResponseEntity<span class="token punctuation">.</span><span class="token function">noContent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+</code></pre>
+            <h3 id="creating-a-frontend">Creating a Frontend</h3>
+            <p>Now that we’ve completed our business logic and created an API, we can build a frontend that consumes it.
+                To do that, we’ve added <strong>thymeleaf</strong> as a maven dependency. With thymeleaf, we can pass
+                data to our pages and display it on the elements using custom HTML attributes.</p>
+            <blockquote>
+                <p>Note: we will only be adding login and signup pages along with a page to display all the to-do list
+                    items. For adding, deleting, and updating to-do list items you’ll need to use a tool like curl or
+                    postman to send the requests to the API. As an exercise, you can even create pages to do this with a
+                    GUI!</p>
+            </blockquote>
+            <p>To start, let’s create a simple controller:</p>
+            <pre class=" language-java"><code class="prism  language-java"><span class="token annotation punctuation">@Controller</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"views"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ViewsController</span> <span class="token punctuation">{</span>
+
+   <span class="token comment">// Inject the value of app.origin from our application-dev.properties. This should be set to http://localhost:8080</span>
+   <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"${app.origin}"</span><span class="token punctuation">)</span>
+   <span class="token keyword">private</span> String origin<span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+            <p>Then let’s add endpoints to redirect to HTML pages in our <em>src/main/resources/templates</em> folder:
+            </p>
+            <pre class=" language-java"><code class="prism  language-java"><span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"login"</span><span class="token punctuation">)</span>
+<span class="token comment">// The Model object is for adding data to the page we will direct the user to.</span>
+<span class="token keyword">public</span> String <span class="token function">login</span><span class="token punctuation">(</span>Model model<span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+  <span class="token comment">// Send the base URL of our app to the page. This data will be accessed via an id of "origin".</span>
+  model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"origin"</span><span class="token punctuation">,</span> origin<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// Return any HTML page in the folder src/main/resources/templates named login.html</span>
+  <span class="token keyword">return</span> <span class="token string">"login"</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"signup"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> String <span class="token function">signup</span><span class="token punctuation">(</span>Model model<span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+  model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"origin"</span><span class="token punctuation">,</span> origin<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token string">"signup"</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+            <blockquote>
+                <p>Note that in this case, the controller returns pages based on the returned string. This is because we
+                    annotated it with @Controller instead of @RestController. If we used @RestController, it would give
+                    the user the raw string.</p>
+            </blockquote>
+            <p>From there, let’s build the login page our first endpoint points to:</p>
+            <pre class=" language-html"><code class="prism  language-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token comment">&lt;!-- xmlns:th="http://www.thymeleaf.org" -&gt; add Thymeleaf to the page --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">xmlns:</span>th</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.thymeleaf.org<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Login<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+
+  <span class="token comment">&lt;!-- th:action="${origin} + '/views/login'" -&gt; set the action attribute of this form to http://localhost:8080/views/login
+    ${origin} is the data we sent to this page ("http://localhost:8080")
+    --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">th:</span>action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${origin} + <span class="token punctuation">'</span>/views/login<span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+          Username
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+          Password
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Login<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+            <p>Notice how this form sends a <strong>POST</strong> request to <a
+                    href="http://localhost:8080/views/login">http://localhost:8080/views/login</a>, let’s create that
+                endpoint in our <code>ViewController</code>:</p>
+            <pre class=" language-java"><code class="prism  language-java"><span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span>path <span class="token operator">=</span> <span class="token string">"login"</span><span class="token punctuation">)</span>
+<span class="token comment">// @RequestParam Map&lt;String, String&gt; body -&gt; the key value pairs corresponding to form data</span>
+<span class="token keyword">public</span> String <span class="token function">getTodosPage</span><span class="token punctuation">(</span>Model model<span class="token punctuation">,</span> <span class="token annotation punctuation">@RequestParam</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> String<span class="token operator">&gt;</span> body<span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+  <span class="token comment">// LoginRequest is a class we created to represent a request body for the login endpoint of our API. It is just a POJO.</span>
+  LoginRequest loginRequest <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LoginRequest</span><span class="token punctuation">(</span>body<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> body<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"password"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// The org.springframework.web.client.RestTemplate class is for sending HTTP requests.</span>
+  RestTemplate rest <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RestTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// Send a post request to our API to login using the loginRequest object as the request body</span>
+  ResponseEntity<span class="token operator">&lt;</span>String<span class="token operator">&gt;</span> response <span class="token operator">=</span> rest<span class="token punctuation">.</span><span class="token function">postForEntity</span><span class="token punctuation">(</span>origin <span class="token operator">+</span> <span class="token string">"/api/auth/login"</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">HttpEntity</span><span class="token operator">&lt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>loginRequest<span class="token punctuation">)</span><span class="token punctuation">,</span> String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// Retrieve the security token (if successful) from the response</span>
+  String token <span class="token operator">=</span> response<span class="token punctuation">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span><span class="token function">getStatusCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">is2xxSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    
+      <span class="token comment">// Add the security token to the Authorization header</span>
+      HttpHeaders headers <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HttpHeaders</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      headers<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span><span class="token string">"Authorization"</span><span class="token punctuation">,</span> <span class="token string">"Bearer "</span> <span class="token operator">+</span> token<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment">// Send an HTTP request to get all of this user's todos</span>
+      ResponseEntity<span class="token operator">&lt;</span>TodoDto<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span> todosResponse <span class="token operator">=</span> rest<span class="token punctuation">.</span><span class="token function">exchange</span><span class="token punctuation">(</span>origin <span class="token operator">+</span> <span class="token string">"/api/todo/allTodos"</span><span class="token punctuation">,</span>
+              HttpMethod<span class="token punctuation">.</span>GET<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">HttpEntity</span><span class="token punctuation">(</span>headers<span class="token punctuation">)</span><span class="token punctuation">,</span> TodoDto<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+      <span class="token keyword">if</span><span class="token punctuation">(</span>todosResponse<span class="token punctuation">.</span><span class="token function">getStatusCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">is2xxSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+          <span class="token comment">// Add the todos from this user on the todos page</span>
+          model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"todos"</span><span class="token punctuation">,</span> todosResponse<span class="token punctuation">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token comment">// Send the security token to the todos-page (just in case)</span>
+          model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"token"</span><span class="token punctuation">,</span> token<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">return</span> <span class="token string">"todos-page"</span><span class="token punctuation">;</span>
+
+      <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+  
+   <span class="token comment">// We won’t be showing this error page in the guide but you can infer what it will look like</span>
+          model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"error"</span><span class="token punctuation">,</span> <span class="token string">"Error fetching your todos"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">return</span> <span class="token string">"error"</span><span class="token punctuation">;</span>
+
+      <span class="token punctuation">}</span>
+
+  <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+    
+      model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"error"</span><span class="token punctuation">,</span> <span class="token string">"Incorrect username or password. Please try again."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token string">"error"</span><span class="token punctuation">;</span>
+
+  <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+            <p>From there, let’s add a simple page to show all the user’s to-dos:</p>
+            <pre class=" language-html"><code class="prism  language-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">xmlns:</span>th</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.thymeleaf.org<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Your todos<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Here are your to-dos<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ul</span><span class="token punctuation">&gt;</span></span>
+      <span class="token comment">&lt;!-- th:each="todo: ${todos}" -&gt; for each of the todo list items, create an li element like so --&gt;</span>
+      <span class="token comment">&lt;!-- ${#dates.format(new java.util.Date(todo.dueDate))} -&gt; change the long the date was stored as to a human-readable date --&gt;</span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>li</span> <span class="token attr-name"><span class="token namespace">th:</span>each</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>todo: ${todos}<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">th:</span>text</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">'</span>TODO: <span class="token punctuation">'</span> + ${todo.subject} + <span class="token punctuation">'</span> DUE: <span class="token punctuation">'</span> + ${#dates.format(new java.util.Date(todo.dueDate))}<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>li</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ul</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+            <p>Lastly, let’s create some GUIs for the signup login. To start, let’s build that <em>signup.html</em>
+                page:</p>
+            <pre class=" language-html"><code class="prism  language-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">xmlns:</span>th</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.thymeleaf.org<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Sign Up<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">th:</span>href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@{/css/reset.css}<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">th:</span>href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>@{/css/styles.css}<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>content<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>section</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>login<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>section</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>card<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Don't have an account yet?<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h2</span><span class="token punctuation">&gt;</span></span>Sign up<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h2</span><span class="token punctuation">&gt;</span></span>
+
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">th:</span>action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${origin} + <span class="token punctuation">'</span>/views/signup<span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                Username
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>username<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                Password
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirm-password<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+                Confirm password
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirm-password<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirmPassword<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>password<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit-button<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Signup<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name"><span class="token namespace">th:</span>href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${origin} + <span class="token punctuation">'</span>/views/login<span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Login<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>section</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>section</span><span class="token punctuation">&gt;</span></span>
+
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+            <p>Notice how it sends a <strong>POST</strong> request to <em><a
+                        href="http://localhost:8080/views/login">http://localhost:8080/views/login</a></em>, let’s
+                implement that endpoint in our <code>ViewController</code>:</p>
+            <pre class=" language-java"><code class="prism  language-java"><span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">"signup"</span><span class="token punctuation">)</span>
+<span class="token comment">// @RequestParam Map&lt;String, String&gt; body -&gt; the key value pairs corresponding to form data</span>
+<span class="token keyword">public</span> String <span class="token function">processSignUpForm</span><span class="token punctuation">(</span>Model model<span class="token punctuation">,</span> <span class="token annotation punctuation">@RequestParam</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> String<span class="token operator">&gt;</span> body<span class="token punctuation">)</span><span class="token punctuation">{</span>
+   <span class="token comment">// SignupRequest is just a POJO with the username, password, and confirm password</span>
+  SignupRequest signupRequest <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SignupRequest</span><span class="token punctuation">(</span>body<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"username"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> body<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"password"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> body<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"confirmPassword"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  RestTemplate rest <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RestTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  ResponseEntity<span class="token operator">&lt;</span>String<span class="token operator">&gt;</span> response <span class="token operator">=</span> rest<span class="token punctuation">.</span><span class="token function">postForEntity</span><span class="token punctuation">(</span>origin <span class="token operator">+</span> <span class="token string">"/api/auth/signup"</span><span class="token punctuation">,</span>
+          <span class="token keyword">new</span> <span class="token class-name">HttpEntity</span><span class="token operator">&lt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>signupRequest<span class="token punctuation">)</span><span class="token punctuation">,</span> String<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"origin"</span><span class="token punctuation">,</span> origin<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span><span class="token function">getStatusCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+      model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"error"</span><span class="token punctuation">,</span> response<span class="token punctuation">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token string">"error"</span><span class="token punctuation">;</span>
+
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> <span class="token string">"successful-signup"</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+            <p>From there, let’s build a simple page for when the user successfully signs up:</p>
+            <pre class=" language-html"><code class="prism  language-html"><span class="token doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span> <span class="token attr-name"><span class="token namespace">xmlns:</span>th</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>http://www.thymeleaf.org<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>UTF-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>Welcome!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Thanks for signing up for this app!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Your account has successfully been created. You may login <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name"><span class="token namespace">th:</span>href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>${origin} + <span class="token punctuation">'</span>/views/login<span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>here<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span>
+</code></pre>
+            <p>Finally, let’s build a simple controller to redirect the user to the signup page from the root url of our
+                app:</p>
+            <pre class=" language-java"><code class="prism  language-java"><span class="token keyword">package</span> us<span class="token punctuation">.</span>john<span class="token punctuation">.</span>hanna<span class="token punctuation">.</span>cps530assignment<span class="token punctuation">.</span>controllers<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Controller<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>GetMapping<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>servlet<span class="token punctuation">.</span>view<span class="token punctuation">.</span>RedirectView<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Controller</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HomeController</span> <span class="token punctuation">{</span>
+    <span class="token comment">// This method is mapped to the root url of our app since we didn't pass any arguments to the GetMapping annotation</span>
+    <span class="token annotation punctuation">@GetMapping</span>
+    <span class="token keyword">public</span> RedirectView <span class="token function">getHomePage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">RedirectView</span><span class="token punctuation">(</span><span class="token string">"/views/signup"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+            <h3 id="conclusion">Conclusion</h3>
+            <p>With that, you should have an idea of how to build a full-stack to-do app with Spring as the frontend and
+                the backend. This was probably a ton to pick up so definitely look over the code and re-read the guide
+                if you need to. The Spring community is fairly large so there are plenty of resources out there to learn
+                it more fully. As an exercise, you can try adding GUIs for adding, updating, or removing items in a
+                user’s to-do list. You can even try something more advanced and configure email functionality to the
+                signup process!</p>
+            <h3 id="further-reading">Further Reading</h3>
+            <ul>
+                <li><a href="https://spring.io/guides">The official Spring guides.</a></li>
+                <li><a href="https://www.baeldung.com/">Baeldung, my favorite source for free Spring guides. They also
+                        provide paid courses on Spring Framework.</a></li>
+                <li><a href="https://www.section.io/engineering-education/authors/john-amiscaray/">My articles; most of
+                        them are on Spring Framework.</a></li>
+            </ul>
+
+
+
         </section>
 
     </main>
