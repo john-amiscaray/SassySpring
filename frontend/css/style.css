@@ -1,15 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code&family=Montserrat:wght@700&family=Work+Sans:wght@300&display=swap");
-.nav-desktop {
-  background-color: #022B3A;
-  color: white;
-  padding: 1em 2em;
+.nav-mobile {
+  display: none;
 }
 
-.nav-desktop .nav-main {
+.nav-menu-mobile {
+  display: none;
+}
+
+.nav-main {
   font-family: "Montserrat", sans-serif;
   color: white;
   text-decoration: none;
   font-size: 1.5em;
+}
+
+.nav-desktop {
+  background-color: #022B3A;
+  color: white;
+  padding: 1em 2em;
 }
 
 .nav-desktop .nav-option {
@@ -263,5 +271,48 @@ b {
 .tutorial-content h1 {
   text-align: left;
   padding: auto 0;
+}
+
+@media screen and (max-width: 688px) {
+  .nav-desktop {
+    display: none;
+  }
+  .nav-mobile {
+    display: block;
+    background-color: #022B3A;
+    padding: 0.5em;
+  }
+  .nav-mobile section {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    gap: 1em;
+  }
+  .nav-mobile img {
+    -ms-flex-item-align: start;
+        align-self: flex-start;
+  }
+  .nav-menu-mobile {
+    padding: 0.5em;
+    display: none;
+    background-color: #022B3A;
+  }
+  .nav-menu-mobile a {
+    display: block;
+    font-family: "Work Sans", sans-serif;
+    color: white;
+    text-decoration: none;
+    padding: 0.5em;
+  }
 }
 /*# sourceMappingURL=style.css.map */
