@@ -353,7 +353,7 @@ b {
     .framework-summary {
 
         padding: 1em;
-        margin: 0;
+        margin: none;
         gap: 0.5em;
         
         .intro {
@@ -377,11 +377,15 @@ b {
 
         .framework-info {
             
-            align-content: stretch;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            padding: 0;
 
             .characteristic {
                 width: auto;
                 padding: 1em;
+                min-width: 0;
             }
         }
     }
