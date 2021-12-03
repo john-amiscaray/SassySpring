@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.view.RedirectView;
 import springfox.documentation.annotations.ApiIgnore;
 
+// Ignore this controller for the API docs
 @ApiIgnore
 @Controller
 public class HomeController {

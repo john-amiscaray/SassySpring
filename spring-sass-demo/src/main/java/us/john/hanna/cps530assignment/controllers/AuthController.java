@@ -13,6 +13,7 @@ import us.john.hanna.cps530assignment.domain.SignupRequest;
 import us.john.hanna.cps530assignment.exceptions.BadAuthRequest;
 import us.john.hanna.cps530assignment.services.AuthService;
 
+// Ignore this controller for the API docs
 @Api
 @RestController
 // Prefix all the endpoints here with /api/auth
@@ -23,6 +24,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("signup")
+    // ApiOperation is for specifying info for the API docs
     @ApiOperation(value="Sign up", notes="Saves a new user to the database.")
     public ResponseEntity<String> signUp(@RequestBody SignupRequest request) throws BadAuthRequest {
 
