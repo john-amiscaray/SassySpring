@@ -62,6 +62,13 @@ p {
   padding: 0.2em;
 }
 
+pre {
+  display: block;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: pre-wrap;
+}
+
 code {
   font-family: "Fira Code", monospace;
   font-size: 12px;
