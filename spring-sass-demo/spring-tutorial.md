@@ -596,7 +596,7 @@ Lastly, let’s create some GUIs for the signup login. To start, let’s build t
 </html>
 ```
 
-Notice how it sends a **POST** request to *http://localhost:8080/views/login*, let’s implement that endpoint in our `ViewController`:
+Notice how it sends a **POST** request to *http://localhost:8080/views/signup*, let’s implement that endpoint in our `ViewController`:
 
 ```java
 @PostMapping("signup")
@@ -613,7 +613,7 @@ public String processSignUpForm(Model model, @RequestParam Map<String, String> b
             model.addAttribute("origin", origin);
             return "successful-signup";
         }catch (HttpClientErrorException ex){
-            model.addAttribute("error", ex.getLocalizedMessage());
+            model.addAttribute("error", ex.getMessage());
             return "error";
         }
 

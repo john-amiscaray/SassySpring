@@ -60,7 +60,7 @@ public class ViewsController {
             model.addAttribute("origin", origin);
             return "successful-signup";
         }catch (HttpClientErrorException ex){
-            model.addAttribute("error", ex.getLocalizedMessage());
+            model.addAttribute("error", ex.getMessage());
             return "error";
         }
 
