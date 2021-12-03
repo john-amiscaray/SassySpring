@@ -198,6 +198,7 @@ b {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        align-items: flex-start;
         padding: 1em;
 
         .characteristic {
@@ -404,6 +405,7 @@ b {
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
+            align-items: stretch;
             padding: 0;
 
             .characteristic {
