@@ -17,6 +17,13 @@ $titles: 'Montserrat', sans-serif;
 $text: 'Work Sans', sans-serif;
 $code: 'Fira Code', monospace;
 
+// uncomment this if ur trying to figure
+// out overflow issues T^T
+
+// * {
+//     outline: 1px solid #f00 !important;
+//   }
+
 // navbar
 
 .nav-mobile {
@@ -357,23 +364,24 @@ b {
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-
+        justify-content: center;
     }
 
     .summary {
+        width: fit-content;
         img {
             width: 70%;
         }
     }
 
     .framework-summary {
-
+        width: fit-content;
         padding: 1em;
         margin: none;
         gap: 0.5em;
         
         .intro {
-
+            width: fit-content;
             display: flex;
             flex-wrap: wrap;
             flex-direction: column;
@@ -392,7 +400,7 @@ b {
         }
 
         .framework-info {
-            
+            width: fit-content;
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
@@ -402,6 +410,10 @@ b {
                 width: auto;
                 padding: 1em;
                 min-width: 0;
+            }
+
+            p {
+                width: fit-content;
             }
         }
     }
