@@ -17,6 +17,7 @@ import us.john.hanna.cps530assignment.domain.SignupRequest;
 import us.john.hanna.cps530assignment.entities.User;
 import us.john.hanna.cps530assignment.exceptions.BadAuthRequest;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -43,6 +44,9 @@ public class JWTAuthService implements AuthService{
     public void signUp(SignupRequest request) throws BadAuthRequest {
         if(!request.getPassword().equals(request.getConfirmPassword())){
             throw new BadAuthRequest("passwords do not match");
+        }
+        if(userRepo.existsByUsername(request.getUsername())){
+            throw new BadAuthRequest("A user with that username already exists");
         }
         User user = new User(request.getUsername(), passwordEncoder.encode(request.getPassword()), new HashSet<>());
         userRepo.save(user);

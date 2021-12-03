@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import springfox.documentation.annotations.ApiIgnore;
 import us.john.hanna.cps530assignment.domain.LoginRequest;
@@ -52,17 +53,16 @@ public class ViewsController {
         // SignupRequest is just a POJO with the username, password, and confirm password
         SignupRequest signupRequest = new SignupRequest(body.get("username"), body.get("password"), body.get("confirmPassword"));
         RestTemplate rest = new RestTemplate();
-        ResponseEntity<String> response = rest.postForEntity(origin + "/api/auth/signup",
-                new HttpEntity<>(signupRequest), String.class);
-        model.addAttribute("origin", origin);
-        if(response.getStatusCode().isError()){
 
-            model.addAttribute("error", response.getBody());
+        try {
+            ResponseEntity<String> response = rest.postForEntity(origin + "/api/auth/signup",
+                    new HttpEntity<>(signupRequest), String.class);
+            model.addAttribute("origin", origin);
+            return "successful-signup";
+        }catch (HttpClientErrorException ex){
+            model.addAttribute("error", ex.getLocalizedMessage());
             return "error";
-
         }
-
-        return "successful-signup";
 
     }
 
@@ -70,39 +70,39 @@ public class ViewsController {
     // @RequestParam Map<String, String> body -> the key value pairs corresponding to form data
     public String getTodosPage(Model model, @RequestParam Map<String, String> body){
 
-        // LoginRequest is a class we created to represent a request body for the login endpoint of our API. It is just a POJO.
-        LoginRequest loginRequest = new LoginRequest(body.get("username"), body.get("password"));
-        // The org.springframework.web.client.RestTemplate class is for sending HTTP requests.
-        RestTemplate rest = new RestTemplate();
-        // Send a post request to our API to login using the loginRequest object as the request body
-        ResponseEntity<String> response = rest.postForEntity(origin + "/api/auth/login", new HttpEntity<>(loginRequest), String.class);
-        // Retrieve the security token (if successful) from the response
-        String token = response.getBody();
-        if(response.getStatusCode().is2xxSuccessful()){
+        try{
 
-            // Add the security token to the Authorization header
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("Authorization", "Bearer " + token);
-            // Send an HTTP request to get all of this user's todos
-            ResponseEntity<TodoDto[]> todosResponse = rest.exchange(origin + "/api/todo/allTodos",
-                    HttpMethod.GET, new HttpEntity(headers), TodoDto[].class);
+            // LoginRequest is a class we created to represent a request body for the login endpoint of our API. It is just a POJO.
+            LoginRequest loginRequest = new LoginRequest(body.get("username"), body.get("password"));
+            // The org.springframework.web.client.RestTemplate class is for sending HTTP requests.
+            RestTemplate rest = new RestTemplate();
+            // Send a post request to our API to login using the loginRequest object as the request body
+            ResponseEntity<String> response = rest.postForEntity(origin + "/api/auth/login", new HttpEntity<>(loginRequest), String.class);
 
-            if(todosResponse.getStatusCode().is2xxSuccessful()){
+            try{
 
+                // Retrieve the security token (if successful) from the response
+                String token = response.getBody();
+                // Add the security token to the Authorization header
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("Authorization", "Bearer " + token);
+                // Send an HTTP request to get all of this user's todos
+                ResponseEntity<TodoDto[]> todosResponse = rest.exchange(origin + "/api/todo/allTodos",
+                        HttpMethod.GET, new HttpEntity(headers), TodoDto[].class);
                 // Add the todos from this user on the todos page
                 model.addAttribute("todos", todosResponse.getBody());
                 // Send the security token to the todos-page (just in case)
                 model.addAttribute("token", token);
                 return "todos-page";
 
-            }else{
+            }catch(HttpClientErrorException ex){
 
                 model.addAttribute("error", "Error fetching your todos");
                 return "error";
 
             }
 
-        }else{
+        }catch(HttpClientErrorException ex){
 
             model.addAttribute("error", "Incorrect username or password. Please try again.");
             return "error";
