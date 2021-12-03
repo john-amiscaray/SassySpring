@@ -324,6 +324,9 @@ b {
     -ms-flex-item-align: start;
         align-self: flex-start;
   }
+  .nav-mobile img:hover {
+    background-color: #124954;
+  }
   .nav-menu-mobile {
     padding: 0.5em;
     display: none;
@@ -335,6 +338,9 @@ b {
     color: white;
     text-decoration: none;
     padding: 0.5em;
+  }
+  .nav-menu-mobile a:hover {
+    background-color: #124954;
   }
   h1 {
     font-size: 2em;
