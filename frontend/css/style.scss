@@ -275,10 +275,7 @@ b {
 
 // mobile site:
 
-@media screen and (max-width: 688px) {
-    // .content {
-    //     background-color: #1F7A8C;
-    // }
+@media screen and (max-width: 830px) {
 
     .nav-desktop {
         display: none;
@@ -318,6 +315,55 @@ b {
             padding: 0.5em;
         }
     }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .content {
+        padding: 1em 2em;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+    }
+
+    .framework-summary {
+
+        padding: 1em;
+        margin: 0;
+        gap: 0.5em;
+        
+        .intro {
+
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: center;
+            
+            p {
+                text-align: center;
+                width: auto;
+            }
+
+            img {
+                width: 200px;
+                height: auto;
+                margin: auto;
+            }
+        }
+
+        .framework-info {
+            
+            align-content: stretch;
+
+            .characteristic {
+                width: auto;
+                padding: 1em;
+            }
+        }
+    }
+
 
 }
 

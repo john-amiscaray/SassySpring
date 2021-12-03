@@ -273,7 +273,7 @@ b {
   padding: auto 0;
 }
 
-@media screen and (max-width: 688px) {
+@media screen and (max-width: 830px) {
   .nav-desktop {
     display: none;
   }
@@ -313,6 +313,57 @@ b {
     color: white;
     text-decoration: none;
     padding: 0.5em;
+  }
+  h1 {
+    font-size: 2em;
+  }
+  .content {
+    padding: 1em 2em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+  .framework-summary {
+    padding: 1em;
+    margin: 0;
+    gap: 0.5em;
+  }
+  .framework-summary .intro {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .framework-summary .intro p {
+    text-align: center;
+    width: auto;
+  }
+  .framework-summary .intro img {
+    width: 200px;
+    height: auto;
+    margin: auto;
+  }
+  .framework-summary .framework-info {
+    -ms-flex-line-pack: stretch;
+        align-content: stretch;
+  }
+  .framework-summary .framework-info .characteristic {
+    width: auto;
+    padding: 1em;
   }
 }
 /*# sourceMappingURL=style.css.map */
