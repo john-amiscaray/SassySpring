@@ -128,6 +128,18 @@ b {
     font-weight: bold;
 }
 
+footer {
+    margin: 2em 0;
+    padding-top: 1em;
+    border-top: 2px solid rgba(59, 59, 59, 0.25); 
+    text-align: center;
+
+    p {
+        font-size: 0.75em;
+        // font-family: $titles;
+    }
+}
+
 // content other than navbar
 .content {
     padding: 2em 5em;
