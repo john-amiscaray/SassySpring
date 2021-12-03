@@ -30,6 +30,8 @@ public class JWTFilter extends BasicAuthenticationFilter {
         String authorizationHeader = request.getHeader("Authorization");
         if(authorizationHeader == null){
 
+            String url = request.getRequestURL().toString();
+            System.out.println("You are at " + url);
             throw new BadAuthRequest("Missing auth token");
 
         }else if(!authorizationHeader.startsWith("Bearer")){
