@@ -57,6 +57,16 @@ li {
     padding: 0.5em 0.25em;
 }
 
+footer {
+    text-align: center;
+    margin: 1em;
+
+    p {
+        font-family: $titles;
+        margin: 1em;
+    }
+}
+
 // content other than navbar
 .content {
     padding: 2em 5em;
@@ -78,6 +88,7 @@ li {
 
         form {
             padding: 2em 0;
+            
             p {
                 font-size: 1em;
                 padding: 0.25em 0;

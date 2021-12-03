@@ -28,13 +28,15 @@
                     </label></p>
                 <input id="confirm-password" name="confirmPassword" type="password">
                 <p><button class="submit-button" type="submit">Signup</button></p>
-                <a th:href="${origin} + '/views/login'">Login</a>
+                <p>Already have an account?</p>
+                <a th:href="${origin} + '/views/login'">Login here</a>
             </form>
 
         </section>
     </section>
 
     <footer>
+        <p>For the API Documentation:</p>
         <a th:href="${origin} + '/swagger-ui.html'">API docs</a>
     </footer>
 </body>
