@@ -1,9 +1,9 @@
 function navToggle() {
-    var x = document.getElementById("navMobile");
-    if (x.style.display === "none") {
-        x.style.display = "block";
+    let mobileNav = document.getElementById("navMobile");
+    if (mobileNav.style.display === "none" || mobileNav.style.display === "") {
+        mobileNav.style.display = "block";
     }
     else {
-        x.style.display = "none";
+        mobileNav.style.display = "none";
     }
 }
